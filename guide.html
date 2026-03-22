@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇳🇿 新西兰10天自驾攻略 V2 | 4人闺蜜游</title>
+<style>
+  :root { --primary: #1a5276; --accent: #e74c3c; --bg: #f8f9fa; --card: #fff; --text: #2c3e50; --muted: #7f8c8d; --success: #27ae60; --warning: #f39c12; --info: #3498db; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+  .container { max-width: 800px; margin: 0 auto; padding: 16px; }
+  .hero { background: linear-gradient(135deg, #1a5276 0%, #2e86c1 100%); color: #fff; padding: 40px 24px; border-radius: 16px; margin-bottom: 24px; text-align: center; }
+  .hero h1 { font-size: 28px; margin-bottom: 8px; }
+  .hero p { opacity: 0.9; font-size: 15px; }
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+  .overview-item { background: rgba(255,255,255,0.15); padding: 12px; border-radius: 10px; text-align: center; }
+  .overview-item .label { font-size: 12px; opacity: 0.8; }
+  .overview-item .value { font-size: 18px; font-weight: 700; }
+  .day-card { background: var(--card); border-radius: 16px; margin-bottom: 20px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .day-header { padding: 18px 20px; color: #fff; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .day-header h2 { font-size: 18px; }
+  .day-header .date { font-size: 13px; opacity: 0.85; }
+  .day-header .arrow { transition: transform 0.3s; font-size: 20px; }
+  .day-header .arrow.open { transform: rotate(180deg); }
+  .day-body { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s; }
+  .day-body.open { max-height: 3000px; padding: 20px; }
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: #e0e0e0; }
+  .timeline-item { position: relative; margin-bottom: 18px; }
+  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid; background: #fff; }
+  .timeline-item .time { font-size: 13px; font-weight: 600; color: var(--primary); }
+  .timeline-item .desc { font-size: 14px; margin-top: 2px; }
+  .timeline-item .note { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .tip-box { background: #fef9e7; border-left: 4px solid var(--warning); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; font-size: 13px; }
+  .tip-box.info { background: #eaf2f8; border-color: var(--info); }
+  .tip-box.danger { background: #fdedec; border-color: var(--accent); }
+  .hotel-box { background: #eafaf1; border-left: 4px solid var(--success); padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+  .hotel-box h4 { font-size: 14px; color: var(--success); margin-bottom: 4px; }
+  .hotel-box p { font-size: 13px; }
+  .drive-info { display: inline-flex; align-items: center; gap: 6px; background: #eee; padding: 4px 10px; border-radius: 20px; font-size: 12px; margin: 4px 0; }
+  .flight-info { display: inline-flex; align-items: center; gap: 6px; background: #e8f4fd; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--info); margin: 6px 0; }
+  .cost-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+  .cost-table th { background: var(--primary); color: #fff; padding: 10px; text-align: left; }
+  .cost-table td { padding: 8px 10px; border-bottom: 1px solid #eee; }
+  .cost-table tr:nth-child(even) { background: #f8f9fa; }
+  .map-link { display: inline-block; background: var(--info); color: #fff; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 13px; margin: 6px 4px; }
+  .map-link:hover { opacity: 0.9; }
+  .section-title { font-size: 22px; font-weight: 700; margin: 32px 0 16px; padding-left: 12px; border-left: 4px solid var(--primary); }
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { padding: 6px 0; font-size: 14px; }
+  .checklist li::before { content: '☐ '; color: var(--muted); }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; margin-right: 4px; }
+  .tag-north { background: #d4efdf; color: #1e8449; }
+  .tag-south { background: #d6eaf8; color: #2874a6; }
+  .tag-flight { background: #fdebd0; color: #ca6f1e; }
+  @media(max-width:600px) { .overview-grid { grid-template-columns: 1fr 1fr; gap: 8px; } .hero h1 { font-size: 22px; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <h1>🇳🇿 新西兰10天自驾攻略</h1>
+  <p>4人闺蜜游 · 2026年4月30日—5月9日</p>
+  <p style="margin-top:8px;font-size:13px;">V2 更新版 · 含奥克兰→基督城航班调整</p>
+  <div class="overview-grid">
+    <div class="overview-item"><div class="label">总天数</div><div class="value">10天9晚</div></div>
+    <div class="overview-item"><div class="label">人数</div><div class="value">4人</div></div>
+    <div class="overview-item"><div class="label">北岛</div><div class="value">2天</div></div>
+    <div class="overview-item"><div class="label">南岛</div><div class="value">6天</div></div>
+  </div>
+  <a href="https://ladyzeng12-dotcom.github.io/nz-route-map/" class="map-link" style="background:rgba(255,255,255,0.25);">🗺️ 查看交互式路线地图</a>
+</div>
+
+<!-- ===== 行程总览 ===== -->
+<div class="section-title">📋 行程总览</div>
+<table class="cost-table">
+  <tr><th>日期</th><th>行程</th><th>住宿</th></tr>
+  <tr><td>D1 · 4/30 三</td><td><span class="tag tag-north">北岛</span>抵达奥克兰</td><td>奥克兰市区</td></tr>
+  <tr><td>D2 · 5/1 四</td><td><span class="tag tag-north">北岛</span>霍比屯一日游</td><td>奥克兰机场附近</td></tr>
+  <tr><td>D3 · 5/2 五</td><td><span class="tag tag-flight">✈️</span><span class="tag tag-south">南岛</span>飞基督城→蒂卡波湖</td><td>蒂卡波湖</td></tr>
+  <tr><td>D4 · 5/3 六</td><td><span class="tag tag-south">南岛</span>库克山→皇后镇</td><td>皇后镇</td></tr>
+  <tr><td>D5 · 5/4 日</td><td><span class="tag tag-south">南岛</span>米尔福德峡湾</td><td>皇后镇</td></tr>
+  <tr><td>D6 · 5/5 一</td><td><span class="tag tag-south">南岛</span>皇后镇+箭镇</td><td>皇后镇</td></tr>
+  <tr><td>D7 · 5/6 二</td><td><span class="tag tag-south">南岛</span>瓦纳卡</td><td>瓦纳卡</td></tr>
+  <tr><td>D8 · 5/7 三</td><td><span class="tag tag-flight">✈️</span>飞回奥克兰</td><td>奥克兰市区</td></tr>
+  <tr><td>D9 · 5/8 四</td><td><span class="tag tag-north">北岛</span>奥克兰深度游</td><td>奥克兰市区</td></tr>
+  <tr><td>D10 · 5/9 五</td><td><span class="tag tag-north">北岛</span>奥克兰→回国</td><td>✈️ 飞机上</td></tr>
+</table>
+
+<div class="tip-box info">
+  ✈️ <b>航班信息</b><br>
+  去程：CZ305 广州 00:50 → 奥克兰 15:40（4月30日）<br>
+  岛间：Jetstar 奥克兰 07:15 → 基督城 08:40（5月2日）· 4人 NZ$320<br>
+  回程（南→北）：皇后镇/瓦纳卡 → 奥克兰（5月7日需预订）<br>
+  回国：CZ306 奥克兰 21:20 → 广州 05:05+1（5月9日）
+</div>
+
+<!-- ===== D1 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#1a5276,#2980b9);" onclick="toggleDay(this)">
+    <div><h2>D1 · 4月30日 周三</h2><div class="date">抵达奥克兰 · 休整</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="timeline-item" style="--c:#1a5276"><div class="time">15:40</div><div class="desc">✈️ 抵达奥克兰国际机场</div><div class="note">过海关、取行李约1h。记得填入境卡，不要带任何食物入境</div></div>
+      <div class="timeline-item"><div class="time">17:00</div><div class="desc">🚗 接机 / Shuttle 到市区酒店</div><div class="note">SkyBus 机场快线 NZ$18/人，或 Uber/出租约 NZ$70-80</div></div>
+      <div class="timeline-item"><div class="time">18:00</div><div class="desc">🏨 办理入住，休息洗漱</div></div>
+      <div class="timeline-item"><div class="time">19:00</div><div class="desc">🍽️ Viaduct Harbour 码头区晚餐</div><div class="note">推荐：Soul Bar & Bistro 或 Depot Eatery（本地海鲜）</div></div>
+      <div class="timeline-item"><div class="time">20:30</div><div class="desc">🌃 散步消食，看看夜景，早点休息</div><div class="note">倒时差，明天有一整天行程</div></div>
+    </div>
+    <div class="hotel-box">
+      <h4>🏨 住宿推荐（奥克兰市区）</h4>
+      <p><b>M Social Auckland</b> — 码头区，设计感酒店，位置好 ~NZ$180/晚</p>
+      <p><b>Hotel DeBrett</b> — 精品酒店，Queen Street 旁 ~NZ$220/晚</p>
+      <p><b>ibis Auckland City</b> — 经济实惠，市中心 ~NZ$130/晚</p>
+    </div>
+    <a class="map-link" href="https://maps.google.com/maps?q=Auckland+Viaduct+Harbour" target="_blank">📍 Viaduct Harbour</a>
+  </div>
+</div>
+
+<!-- ===== D2 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#1e8449,#27ae60);" onclick="toggleDay(this)">
+    <div><h2>D2 · 5月1日 周四</h2><div class="date">霍比屯一日游 → 住机场附近</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="flight-info">🚗 奥克兰 → 霍比屯 → 奥克兰机场 · 全天约 300km</div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="time">07:30</div><div class="desc">🚗 退房出发，开车前往霍比屯</div><div class="note">走 SH1 南下 → SH29 → Matamata 约 2小时</div></div>
+      <div class="timeline-item"><div class="time">09:30</div><div class="desc">📍 抵达霍比屯 Hobbiton Movie Set</div></div>
+      <div class="timeline-item"><div class="time">10:00</div><div class="desc">🏡 霍比屯电影外景地导览（约 2h）</div><div class="note">⚠️ 必须提前网上预订！建议买 10:00 AM 场次<br>官网：hobbitontours.com · NZ$89/人<br>参观霍比特人小屋、绿龙酒馆，含一杯免费饮品</div></div>
+      <div class="timeline-item"><div class="time">12:00</div><div class="desc">🍽️ Shire's Rest Cafe 午餐</div><div class="note">就在景区入口，霍比特人主题餐厅</div></div>
+      <div class="timeline-item"><div class="time">13:00</div><div class="desc">🚗 返回奥克兰方向</div><div class="note">开车约 1.5h 到奥克兰机场区域</div></div>
+      <div class="timeline-item"><div class="time">15:00</div><div class="desc">🏨 入住机场附近酒店</div><div class="note">早点到，整理行李，准备明天 5:30 AM 起床赶飞机</div></div>
+      <div class="timeline-item"><div class="time">16:00</div><div class="desc">🛒 如有需要，去附近超市采购零食</div><div class="note">Countdown 超市在机场附近 Manukau 有大店</div></div>
+      <div class="timeline-item"><div class="time">19:00</div><div class="desc">🍽️ 酒店附近晚餐，早睡！</div><div class="note">明天一大早赶 7:15 航班</div></div>
+    </div>
+    <div class="tip-box danger">
+      ⚠️ <b>重要提醒</b>：明天航班 7:15 AM，需要 5:15 到机场。建议 22:00 前睡觉！<br>
+      如果租了车，今天就要还车（机场还车点）。行李可以带去机场酒店。
+    </div>
+    <div class="hotel-box">
+      <h4>🏨 住宿推荐（奥克兰机场附近）</h4>
+      <p><b>Novotel Auckland Airport</b> — 机场正对面，走路5分钟 ~NZ$200/晚</p>
+      <p><b>ibis Budget Auckland Airport</b> — 经济选择，有免费穿梭巴士 ~NZ$120/晚</p>
+      <p><b>Jet Park Airport Hotel</b> — 老牌机场酒店，24h 穿梭巴士 ~NZ$160/晚</p>
+    </div>
+    <a class="map-link" href="https://www.google.com/maps/dir/Auckland+CBD/-37.872,175.683/Auckland+Airport" target="_blank">🗺️ Google Maps 全天路线</a>
+  </div>
+</div>
+
+<!-- ===== D3 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#2874a6,#3498db);" onclick="toggleDay(this)">
+    <div><h2>D3 · 5月2日 周五</h2><div class="date">✈️ 飞基督城 → 蒂卡波湖</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="flight-info">✈️ Jetstar · AKL 07:15 → CHC 08:40 · 4人 NZ$320 (80/人)</div>
+    <div class="drive-info">🚗 基督城 → 蒂卡波湖 · 227km · 约 3h</div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="time">05:15</div><div class="desc">🚶 到达奥克兰机场国内航站楼</div><div class="note">Jetstar 建议起飞前 2h 到。机场酒店步行或穿梭巴士</div></div>
+      <div class="timeline-item"><div class="time">07:15</div><div class="desc">✈️ 起飞！AKL → CHC</div></div>
+      <div class="timeline-item"><div class="time">08:40</div><div class="desc">✈️ 抵达基督城机场</div></div>
+      <div class="timeline-item"><div class="time">09:15</div><div class="desc">🚗 取租车</div><div class="note">推荐 Apex / Jucy / Snap Rentals（取车柜台在航站楼内）<br>建议租 SUV 或大MPV，4人+行李更舒适<br>⚠️ 新西兰靠左行驶！先在停车场适应一下</div></div>
+      <div class="timeline-item"><div class="time">09:30</div><div class="desc">🚗 出发前往蒂卡波湖</div><div class="note">走 SH1 → Ashburton → SH79 → Tekapo<br>沿途是坎特伯雷平原，风景渐入佳境</div></div>
+      <div class="timeline-item"><div class="time">12:30</div><div class="desc">📍 抵达蒂卡波湖 Lake Tekapo</div></div>
+      <div class="timeline-item"><div class="time">13:00</div><div class="desc">🍽️ 午餐：Kohan Japanese Restaurant 或 Astro Cafe</div><div class="note">Kohan 的三文鱼盖饭很有名！</div></div>
+      <div class="timeline-item"><div class="time">14:30</div><div class="desc">⛪ 好牧羊人教堂 Church of the Good Shepherd</div><div class="note">新西兰最上镜的教堂！背景就是蒂卡波湖和雪山<br>5月是秋末，人少，拍照绝佳</div></div>
+      <div class="timeline-item"><div class="time">15:30</div><div class="desc">🚶 湖边步道散步</div><div class="note">沿湖栈道非常美，约 30-40 分钟</div></div>
+      <div class="timeline-item"><div class="time">16:30</div><div class="desc">♨️ Tekapo Springs 温泉</div><div class="note">露天温泉看雪山！NZ$30/人。冬天泡温泉超舒服</div></div>
+      <div class="timeline-item"><div class="time">19:00</div><div class="desc">🍽️ 晚餐 + 自由活动</div></div>
+      <div class="timeline-item"><div class="time">21:00</div><div class="desc">🌌 暗夜星空观测（天气好的话）</div><div class="note">蒂卡波是世界级暗夜保护区 Dark Sky Reserve！<br>推荐 Earth & Sky 星空观测团 ~NZ$90/人<br>或者走出酒店就能看到银河（5月夜空极清澈）</div></div>
+    </div>
+    <div class="tip-box info">
+      💡 <b>蒂卡波小贴士</b><br>
+      · 5月日落约 17:30，气温 2-10°C，带厚外套和围巾<br>
+      · 镇上很小，超市选择少，建议从基督城带些零食<br>
+      · 停车是免费的，但教堂附近车位有限
+    </div>
+    <div class="hotel-box">
+      <h4>🏨 住宿推荐（蒂卡波湖）</h4>
+      <p><b>Peppers Bluewater Resort</b> — 湖景房超美 ~NZ$250/晚</p>
+      <p><b>Lake Tekapo Motels & Holiday Park</b> — 性价比好 ~NZ$150/晚</p>
+      <p><b>Godley Hotel</b> — 湖边老牌酒店 ~NZ$180/晚</p>
+    </div>
+    <a class="map-link" href="https://www.google.com/maps/dir/Christchurch+Airport/-43.8848,170.5028" target="_blank">🗺️ 基督城→蒂卡波 路线</a>
+  </div>
+</div>
+
+<!-- ===== D4 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#6c3483,#8e44ad);" onclick="toggleDay(this)">
+    <div><h2>D4 · 5月3日 周六</h2><div class="date">库克山徒步 → 皇后镇</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="drive-info">🚗 蒂卡波 → 库克山 · 103km · 1h</div>
+    <div class="drive-info">🚗 库克山 → 皇后镇 · 262km · 3.5h（经 Lindis Pass）</div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="time">07:30</div><div class="desc">🌅 湖边看日出（可选）</div><div class="note">5月日出约 7:15，教堂方向日出绝美</div></div>
+      <div class="timeline-item"><div class="time">08:30</div><div class="desc">🚗 退房，出发前往库克山</div></div>
+      <div class="timeline-item"><div class="time">09:30</div><div class="desc">📍 抵达 Aoraki / Mt Cook Village</div><div class="note">沿途普卡基湖 Lake Pukaki 的蓝绿色湖水令人窒息！路边有观景台停车拍照</div></div>
+      <div class="timeline-item"><div class="time">10:00</div><div class="desc">🥾 Hooker Valley Track 步道</div><div class="note">新西兰最美轻松步道！来回约 10km，3h<br>穿过3座吊桥，终点是冰川湖+库克山全景<br>⚠️ 5月可能有冰雪，穿防水防滑的登山鞋</div></div>
+      <div class="timeline-item"><div class="time">13:00</div><div class="desc">🍽️ Mt Cook Village 午餐</div><div class="note">The Old Mountaineers' Cafe 是村里最好的餐厅</div></div>
+      <div class="timeline-item"><div class="time">14:00</div><div class="desc">🚗 出发前往皇后镇</div><div class="note">最美公路之一！经过 Mackenzie Country → Lindis Pass（海拔 971m）→ Cromwell 水果小镇</div></div>
+      <div class="timeline-item"><div class="time">17:30</div><div class="desc">📍 抵达皇后镇 Queenstown</div></div>
+      <div class="timeline-item"><div class="time">18:00</div><div class="desc">🏨 入住酒店</div></div>
+      <div class="timeline-item"><div class="time">19:00</div><div class="desc">🍽️ 皇后镇晚餐</div><div class="note">必去：Fergburger（网红汉堡，排队但值得！）<br>或：Rata（名厨 Josh Emett 主理，高端新西兰料理）</div></div>
+      <div class="timeline-item"><div class="time">20:30</div><div class="desc">🌃 皇后镇湖边夜景漫步</div></div>
+    </div>
+    <div class="tip-box">
+      💡 <b>Lindis Pass 注意</b>：5月可能有霜冻/黑冰，谨慎驾驶。天黑前通过最安全。
+    </div>
+    <div class="hotel-box">
+      <h4>🏨 住宿推荐（皇后镇 · 连住3晚）</h4>
+      <p><b>Crowne Plaza Queenstown</b> — 市中心湖景 ~NZ$280/晚</p>
+      <p><b>Novotel Queenstown Lakeside</b> — 湖边位置好 ~NZ$250/晚</p>
+      <p><b>Heartland Hotel Queenstown</b> — 性价比 ~NZ$180/晚</p>
+    </div>
+    <a class="map-link" href="https://www.google.com/maps/dir/-43.8848,170.5028/-43.7340,170.0960/-44.9972,168.7557" target="_blank">🗺️ 蒂卡波→库克山→皇后镇</a>
+  </div>
+</div>
+
+<!-- ===== D5 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#0e6655,#1abc9c);" onclick="toggleDay(this)">
+    <div><h2>D5 · 5月4日 周日</h2><div class="date">米尔福德峡湾一日游</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="drive-info">🚗 皇后镇 → 米尔福德峡湾 · 287km · 约 4h 单程</div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="time">06:30</div><div class="desc">🚗 出发！前往米尔福德峡湾</div><div class="note">自驾约4h，沿途风景绝美值得多停几次<br>🅿️ 建议加满油！沿途没有加油站</div></div>
+      <div class="timeline-item"><div class="time">08:00</div><div class="desc">📍 Te Anau 小镇</div><div class="note">最后的补给点，可以上厕所、买咖啡</div></div>
+      <div class="timeline-item"><div class="time">09:00</div><div class="desc">📍 Mirror Lakes 镜湖</div><div class="note">路边停车就能看到！平静如镜的湖面倒映雪山<br>步行 5 分钟，适合拍照</div></div>
+      <div class="timeline-item"><div class="time">09:30</div><div class="desc">📍 Eglinton Valley 大草原</div><div class="note">两侧雪山环绕的开阔山谷</div></div>
+      <div class="timeline-item"><div class="time">10:00</div><div class="desc">📍 Homer Tunnel 隧道</div><div class="note">单向通行的山洞隧道，出隧道后景色大变！</div></div>
+      <div class="timeline-item"><div class="time">10:30</div><div class="desc">📍 The Chasm 裂谷步道</div><div class="note">短步道（15min 来回），看急流切割出的岩石奇观</div></div>
+      <div class="timeline-item"><div class="time">11:00</div><div class="desc">📍 抵达米尔福德峡湾码头</div></div>
+      <div class="timeline-item"><div class="time">11:30</div><div class="desc">🚢 峡湾巡游（约 2h）</div><div class="note">推荐：Real Journeys 或 Jucy Cruise<br>NZ$79-95/人，看瀑布、海豚、海豹<br>⚠️ 提前网上预订！旺季经常满</div></div>
+      <div class="timeline-item"><div class="time">13:30</div><div class="desc">🍽️ 码头简单午餐</div></div>
+      <div class="timeline-item"><div class="time">14:00</div><div class="desc">🚗 返程回皇后镇</div><div class="note">原路返回约 4h，天黑前到</div></div>
+      <div class="timeline-item"><div class="time">18:30</div><div class="desc">📍 回到皇后镇</div></div>
+      <div class="timeline-item"><div class="time">19:00</div><div class="desc">🍽️ 晚餐 + 休息</div><div class="note">推荐：Flame Bar & Grill（牛排）或 Pedro's by the Lake</div></div>
+    </div>
+    <div class="tip-box danger">
+      ⚠️ <b>米尔福德峡湾注意事项</b><br>
+      · 5月日照短（日落约 17:15），建议 6:30 前出发<br>
+      · 路上可能有黑冰和大雾，小心驾驶<br>
+      · <b>另一选择</b>：参加从皇后镇出发的大巴一日游（NZ$199/人含巡游），不用自己开<br>
+      · 手机信号：出了 Te Anau 后基本没信号
+    </div>
+    <a class="map-link" href="https://www.google.com/maps/dir/Queenstown/-45.0312,167.9236/-44.6719,167.9252" target="_blank">🗺️ 皇后镇→米尔福德峡湾</a>
+  </div>
+</div>
+
+<!-- ===== D6 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#b7950b,#f1c40f); color:#333;" onclick="toggleDay(this)">
+    <div><h2>D6 · 5月5日 周一</h2><div class="date">皇后镇 + 箭镇</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="drive-info">🚗 皇后镇 → 箭镇 · 21km · 20min</div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="time">08:30</div><div class="desc">🍳 睡个懒觉！昨天累了</div></div>
+      <div class="timeline-item"><div class="time">09:30</div><div class="desc">🚡 天空缆车 Skyline Gondola + Luge</div><div class="note">缆车 NZ$44/人，Luge 滑道 NZ$15/次<br>山顶俯瞰皇后镇全景 + 瓦卡蒂普湖，绝佳！<br>建议坐缆车上去，走步道下来（30min）</div></div>
+      <div class="timeline-item"><div class="time">11:30</div><div class="desc">🚗 前往箭镇 Arrowtown</div></div>
+      <div class="timeline-item"><div class="time">12:00</div><div class="desc">📍 箭镇漫步</div><div class="note">🍂 5月初正是秋天最后一波彩叶！<br>· Buckingham Street 百年老街<br>· Chinese Settlement 华人淘金遗址<br>· Arrow River 小河边步道</div></div>
+      <div class="timeline-item"><div class="time">13:00</div><div class="desc">🍽️ 箭镇午餐</div><div class="note">The Fork & Tap（精酿啤酒+汉堡）或 Provisions Cafe</div></div>
+      <div class="timeline-item"><div class="time">14:30</div><div class="desc">🚗 回皇后镇</div></div>
+      <div class="timeline-item"><div class="time">15:00</div><div class="desc">🎯 皇后镇自由活动</div><div class="note">选择你们喜欢的：<br>· 🚀 Shotover Jet 喷射快艇 NZ$159/人<br>· 🪂 AJ Hackett 蹦极 NZ$205/人（Kawarau Bridge）<br>· 🛍️ 逛街购物（Queenstown Mall, Remarkable Sweet Shop）<br>· ☕ Patagonia Chocolates 吃手工巧克力</div></div>
+      <div class="timeline-item"><div class="time">19:00</div><div class="desc">🍽️ 最后的皇后镇晚餐</div><div class="note">推荐：Botswana Butchery（高端）或 Erik's Fish & Chips（当地人最爱炸鱼薯条）</div></div>
+    </div>
+    <a class="map-link" href="https://www.google.com/maps/dir/Queenstown/-44.9376,168.8292/Queenstown" target="_blank">🗺️ 皇后镇↔箭镇</a>
+  </div>
+</div>
+
+<!-- ===== D7 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#ca6f1e,#e67e22);" onclick="toggleDay(this)">
+    <div><h2>D7 · 5月6日 周二</h2><div class="date">瓦纳卡 · 南岛最后一天</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="drive-info">🚗 皇后镇 → 瓦纳卡 · 67km · 1h（Crown Range 公路）</div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="time">09:00</div><div class="desc">🚗 退房，出发去瓦纳卡</div><div class="note">走 Crown Range Road 皇冠山脉公路（新西兰最高公路）<br>山顶观景台可以俯瞰整个山谷，必停！<br>⚠️ 5月可能有冰雪路面，慢速驾驶</div></div>
+      <div class="timeline-item"><div class="time">10:00</div><div class="desc">📍 Crown Range 观景台</div><div class="note">海拔 1076m，壮阔山景</div></div>
+      <div class="timeline-item"><div class="time">10:30</div><div class="desc">📍 抵达瓦纳卡 Wanaka</div></div>
+      <div class="timeline-item"><div class="time">11:00</div><div class="desc">📷 That Wanaka Tree</div><div class="note">全新西兰最著名的网红树！湖中独立生长的柳树<br>秋季拍照特别美（可能已经落叶，但意境更佳）</div></div>
+      <div class="timeline-item"><div class="time">11:30</div><div class="desc">🧩 Puzzling World 奇幻迷宫</div><div class="note">NZ$22.50/人。视觉错觉屋 + 大迷宫，非常有趣！适合拍照</div></div>
+      <div class="timeline-item"><div class="time">13:00</div><div class="desc">🍽️ 瓦纳卡湖边午餐</div><div class="note">Federal Diner（早午餐名店）或 Kika（地中海风味）</div></div>
+      <div class="timeline-item"><div class="time">14:30</div><div class="desc">🚶 Lake Wanaka 湖边栈道</div><div class="note">从镇中心沿湖走到 Eely Point，约 40 分钟<br>秋季的金黄色树林 + 湛蓝湖水 = 明信片</div></div>
+      <div class="timeline-item"><div class="time">15:30</div><div class="desc">🚗 Lake Hawea 观景台</div><div class="note">开车 15min 就到，另一个蓝绿色宝石湖</div></div>
+      <div class="timeline-item"><div class="time">17:00</div><div class="desc">🏨 入住瓦纳卡酒店</div></div>
+      <div class="timeline-item"><div class="time">19:00</div><div class="desc">🍽️ 晚餐</div><div class="note">Bistro Gentil（法式小馆，被评为瓦纳卡最佳餐厅）</div></div>
+    </div>
+    <div class="tip-box info">
+      💡 <b>明天需要赶飞机回奥克兰</b><br>
+      · 如果从皇后镇飞：明早从瓦纳卡开 1h 到 ZQN 机场<br>
+      · 提前预订 ZQN → AKL 航班（Air NZ / Jetstar 多班次）<br>
+      · 租车可在皇后镇机场还（一般支持异地还车，加 NZ$50-100）
+    </div>
+    <div class="hotel-box">
+      <h4>🏨 住宿推荐（瓦纳卡）</h4>
+      <p><b>Edgewater Hotel</b> — 正对湖景，位置一流 ~NZ$220/晚</p>
+      <p><b>Wanaka Hotel</b> — 镇中心，性价比好 ~NZ$160/晚</p>
+      <p><b>Oakridge Resort</b> — 度假村风格 ~NZ$200/晚</p>
+    </div>
+    <a class="map-link" href="https://www.google.com/maps/dir/Queenstown/-44.6925,169.0366/-44.6150,169.3212" target="_blank">🗺️ 皇后镇→瓦纳卡→哈维亚湖</a>
+  </div>
+</div>
+
+<!-- ===== D8 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#2c3e50,#34495e);" onclick="toggleDay(this)">
+    <div><h2>D8 · 5月7日 周三</h2><div class="date">✈️ 飞回奥克兰</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="flight-info">✈️ 皇后镇 → 奥克兰 · 约 2h · 需提前预订</div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="time">07:00</div><div class="desc">🚗 退房，瓦纳卡开车去皇后镇机场</div><div class="note">约 1h 车程，走 Crown Range 或 SH6</div></div>
+      <div class="timeline-item"><div class="time">08:00</div><div class="desc">🚗 还租车</div><div class="note">ZQN 机场还车点。检查油箱满油，清理车内</div></div>
+      <div class="timeline-item"><div class="time">09:00-10:00</div><div class="desc">✈️ 飞往奥克兰（视航班时间）</div><div class="note">Air NZ ZQN→AKL 从 NZ$119/人<br>Jetstar 从 NZ$104/人<br>⚠️ 建议选上午航班，下午还有时间逛奥克兰</div></div>
+      <div class="timeline-item"><div class="time">12:00</div><div class="desc">📍 抵达奥克兰</div></div>
+      <div class="timeline-item"><div class="time">13:00</div><div class="desc">🏨 入住市区酒店，放行李</div></div>
+      <div class="timeline-item"><div class="time">14:00</div><div class="desc">🏔️ Mt Eden 伊甸山</div><div class="note">奥克兰最高火山口，360° 城市全景<br>开车上去或步行（从山脚 20 min）</div></div>
+      <div class="timeline-item"><div class="time">15:30</div><div class="desc">🛍️ Ponsonby Road / Karangahape Road</div><div class="note">奥克兰最潮的街区，独立设计师店、咖啡馆、画廊</div></div>
+      <div class="timeline-item"><div class="time">18:00</div><div class="desc">🍽️ Ponsonby 晚餐</div><div class="note">推荐：Azabu（日式秘鲁融合菜）或 Sidart（Fine Dining）</div></div>
+    </div>
+    <div class="hotel-box">
+      <h4>🏨 住宿推荐（奥克兰市区 · 连住2晚）</h4>
+      <p><b>Hotel DeBrett</b> — 精品酒店，Queen Street ~NZ$220/晚</p>
+      <p><b>QT Auckland</b> — 设计酒店，Viaduct 区 ~NZ$250/晚</p>
+      <p><b>Adina Apartment Hotel</b> — 公寓式，适合多人 ~NZ$200/晚</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== D9 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#7d3c98,#a569bd);" onclick="toggleDay(this)">
+    <div><h2>D9 · 5月8日 周四</h2><div class="date">奥克兰深度游</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="timeline">
+      <div class="timeline-item"><div class="time">08:30</div><div class="desc">🍳 睡到自然醒！</div></div>
+      <div class="timeline-item"><div class="time">09:30</div><div class="desc">⛴️ 渡轮去 Devonport</div><div class="note">从 Downtown Ferry Terminal 坐轮渡，12min，NZ$7.5/人<br>Devonport 是奥克兰最美的海边小镇</div></div>
+      <div class="timeline-item"><div class="time">10:00</div><div class="desc">🏔️ North Head & Mt Victoria</div><div class="note">二战炮台遗址 + 俯瞰奥克兰天际线最佳角度<br>两个景点走路都能到，各 30min</div></div>
+      <div class="timeline-item"><div class="time">11:30</div><div class="desc">🏖️ Devonport 小镇漫步</div><div class="note">可爱的小店、咖啡馆、海边栈道</div></div>
+      <div class="timeline-item"><div class="time">12:30</div><div class="desc">⛴️ 渡轮回市区</div></div>
+      <div class="timeline-item"><div class="time">13:00</div><div class="desc">🍽️ Mission Bay 午餐</div><div class="note">开车或公交 15min。海滩边吃 Fish & Chips<br>De Fontein Belgian Beer Cafe 很受欢迎</div></div>
+      <div class="timeline-item"><div class="time">14:30</div><div class="desc">🏖️ Mission Bay 海滩漫步</div><div class="note">奥克兰最美城市沙滩，沿 Tamaki Drive 走到 St Heliers</div></div>
+      <div class="timeline-item"><div class="time">16:00</div><div class="desc">🛍️ 回市区购物</div><div class="note">· Queen Street / Britomart 商圈<br>· T Galleria DFS 免税店<br>· Newmarket 大型购物区<br>买 Manuka 蜂蜜、绵羊油、Whittaker's 巧克力当手信</div></div>
+      <div class="timeline-item"><div class="time">18:30</div><div class="desc">🍽️ 告别晚餐！</div><div class="note">推荐：Harbour Society（Sofitel 酒店，海景牛排）<br>或 The Sugar Club（Sky Tower 51楼，旋转餐厅看夜景）</div></div>
+      <div class="timeline-item"><div class="time">20:30</div><div class="desc">📦 回酒店收拾行李</div><div class="note">明晚就飞了，今晚整理好</div></div>
+    </div>
+    <a class="map-link" href="https://www.google.com/maps/dir/Auckland+Ferry+Terminal/Devonport+Wharf/Mission+Bay+Beach/Queen+Street+Auckland" target="_blank">🗺️ D9 奥克兰游览路线</a>
+  </div>
+</div>
+
+<!-- ===== D10 ===== -->
+<div class="day-card">
+  <div class="day-header" style="background:linear-gradient(135deg,#922b21,#e74c3c);" onclick="toggleDay(this)">
+    <div><h2>D10 · 5月9日 周五</h2><div class="date">奥克兰 → 回国 ✈️</div></div>
+    <span class="arrow">▼</span>
+  </div>
+  <div class="day-body">
+    <div class="flight-info">✈️ CZ306 · 奥克兰 21:20 → 广州 05:05+1</div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="time">09:00</div><div class="desc">🍳 睡到自然醒，酒店早餐</div></div>
+      <div class="timeline-item"><div class="time">10:00</div><div class="desc">📍 最后的景点 / 购物</div><div class="note">· Auckland War Memorial Museum（NZ$28/人，毛利文化必看）<br>· 或 Cornwall Park / One Tree Hill 散步<br>· 或补买手信、退税</div></div>
+      <div class="timeline-item"><div class="time">12:00</div><div class="desc">🍽️ 午餐</div></div>
+      <div class="timeline-item"><div class="time">14:00</div><div class="desc">🏨 回酒店取行李，退房</div></div>
+      <div class="timeline-item"><div class="time">16:00</div><div class="desc">🚗 前往奥克兰机场</div><div class="note">预留充足时间，国际航班建议提前 3 小时到</div></div>
+      <div class="timeline-item"><div class="time">17:00</div><div class="desc">📍 到达机场国际航站楼</div><div class="note">办理值机、托运行李</div></div>
+      <div class="timeline-item"><div class="time">18:00</div><div class="desc">🛍️ 机场免税店</div><div class="note">最后机会买 Manuka 蜂蜜（机场比市区贵一点但方便）</div></div>
+      <div class="timeline-item"><div class="time">21:20</div><div class="desc">✈️ CZ306 起飞回国！</div><div class="note">到达广州 05:05（+1天），飞行约 12h</div></div>
+    </div>
+    <div class="tip-box">
+      💡 <b>离境提醒</b><br>
+      · 新西兰没有出境退税制度（和澳洲不同）<br>
+      · 国际航班液体限制：100ml 以下，透明袋装<br>
+      · 充电宝放随身行李，不能托运
+    </div>
+  </div>
+</div>
+
+<!-- ===== 费用估算 ===== -->
+<div class="section-title">💰 费用估算（4人）</div>
+<table class="cost-table">
+  <tr><th>项目</th><th>费用/人 (NZ$)</th><th>4人合计 (NZ$)</th><th>备注</th></tr>
+  <tr><td>✈️ AKL→CHC 机票</td><td>$80</td><td>$320</td><td>Jetstar 7:15</td></tr>
+  <tr><td>✈️ ZQN→AKL 机票</td><td>~$119</td><td>~$476</td><td>Air NZ（需预订）</td></tr>
+  <tr><td>🚗 南岛租车 5天</td><td>~$75</td><td>~$300</td><td>含保险、异地还车费</td></tr>
+  <tr><td>⛽ 油费</td><td>~$60</td><td>~$240</td><td>约 1200km</td></tr>
+  <tr><td>🏨 住宿 9晚</td><td>~$900</td><td>~$3,600</td><td>2间房/晚，~$200/间</td></tr>
+  <tr><td>🎫 景点门票</td><td>~$350</td><td>~$1,400</td><td>霍比屯+缆车+峡湾+温泉等</td></tr>
+  <tr><td>🍽️ 餐饮 10天</td><td>~$500</td><td>~$2,000</td><td>~$50/天/人</td></tr>
+  <tr style="background:#eaf2f8;font-weight:700;"><td>合计</td><td>~NZ$2,084</td><td>~NZ$8,336</td><td>约￥36,000 总 / ￥9,000人</td></tr>
+</table>
+<p style="font-size:12px;color:var(--muted);margin-top:4px;">* 不含国际机票（CZ305/CZ306）和签证费。汇率按 1 NZD ≈ 4.3 RMB 估算。</p>
+
+<!-- ===== 实用信息 ===== -->
+<div class="section-title">📋 行前清单</div>
+<ul class="checklist">
+  <li>护照（有效期 > 6个月）+ 新西兰签证</li>
+  <li>国际驾照 or NZTA认证翻译件（租车必备）</li>
+  <li>预订霍比屯门票（hobbitontours.com）</li>
+  <li>预订米尔福德峡湾巡游</li>
+  <li>预订 D8 皇后镇→奥克兰机票</li>
+  <li>预订所有酒店（5月初是旺季转淡季，但周末仍抢手）</li>
+  <li>预订租车（CHC 取车，ZQN 还车）</li>
+  <li>下载离线地图（Google Maps 可离线）</li>
+  <li>保暖衣物：冲锋衣、抓绒、围巾、帽子（5月 2-12°C）</li>
+  <li>防水登山鞋（库克山步道必备）</li>
+  <li>充电宝 + 新西兰插头转换器（三脚扁插）</li>
+  <li>Manuka 蜂蜜回国带不超过 1kg/人（海关限制）</li>
+</ul>
+
+<div class="section-title">🚗 驾驶须知</div>
+<div class="tip-box danger">
+  🚨 <b>新西兰靠左行驶！</b><br>
+  · 第一次右舵驾驶，先在停车场绕几圈适应<br>
+  · 环岛（Roundabout）：让右方来车先行<br>
+  · 限速：市区 50km/h，乡间公路 100km/h<br>
+  · 单行桥（One Lane Bridge）：注意让行标志<br>
+  · 5月山路可能有黑冰，看到 "Frost" 标志减速<br>
+  · 加油站大城市之间可能间隔很远，低于半箱就加
+</div>
+
+</div><!-- container -->
+
+<script>
+function toggleDay(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector('.arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+}
+// Auto-open first day
+document.addEventListener('DOMContentLoaded', () => {
+  const firstBody = document.querySelector('.day-body');
+  const firstArrow = document.querySelector('.arrow');
+  if(firstBody) { firstBody.classList.add('open'); firstArrow.classList.add('open'); }
+});
+</script>
+</body>
+</html>
