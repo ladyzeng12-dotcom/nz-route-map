@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇳🇿 新西兰10天闺蜜游攻略 V3</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<title>🇳🇿 新西兰10天闺蜜游攻略</title>
+
+
 <style>
   :root {
     --bg: #0f0f1a; --card: #1a1a2e; --card2: #16213e;
@@ -120,42 +120,52 @@
 <!-- ==================== SECTION 1: ROUTE MAP ==================== -->
 <h2 class="section-title">📍 全程路线总图</h2>
 
-<div id="map-container">
-  <div id="map"></div>
-  <div class="map-legend">
-    <div class="map-legend-item"><div class="map-legend-dot" style="background:#3498db"></div>北岛自驾</div>
-    <div class="map-legend-item"><div class="map-legend-dot" style="background:#e74c3c"></div>南岛自驾</div>
-    <div class="map-legend-item"><div class="map-legend-dot" style="background:#95a5a6"></div>✈️ 飞行段</div>
-    <div class="map-legend-item">🔵 景点</div>
-    <div class="map-legend-item">🟡 酒店</div>
-  </div>
+<div class="route-info" style="background:#1a1a2e;border-radius:16px;padding:28px 24px;margin:24px 0;border:1px solid #2a2a4a">
+
+  <div style="font-size:13px;color:#e94560;font-weight:700;letter-spacing:2px;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #2a2a4a">🏝️ 北岛 · D1 – D3 早</div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #f1c40f;background:rgba(241,196,15,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">🏙️ Auckland CBD <span style="display:inline-block;background:rgba(241,196,15,.15);color:#f1c40f;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:6px">🏨 Cordis Auckland</span><span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D1 D2</span></div><div style="font-size:12px;color:#aaa;margin-top:2px">D1 下午到 · D2 霍比屯当天往返 · 晚上回酒店</div></div></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:2px 0;margin-left:6px"><div style="width:4px;min-height:28px;border-radius:2px;background:linear-gradient(180deg,#4ecdc4,#e94560)"></div><div style="background:rgba(233,69,96,.12);border:1px solid rgba(233,69,96,.25);border-radius:8px;padding:4px 12px;font-size:12px;color:#ff6b6b;font-weight:600">🚗 173km · 2小时 <span style="color:#aaa;font-weight:400;margin-left:4px">SH1/SH27</span></div></div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #4ecdc4;background:rgba(78,205,196,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">🏡 Hobbiton 霍比屯 <span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D2 当天往返</span></div><div style="font-size:12px;color:#aaa">导览2h · 原路返回（↩ 173km / 2h）</div></div></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:2px 0;margin-left:6px"><div style="width:4px;min-height:22px;border-radius:2px;background:#4ecdc4;opacity:.4"></div><div style="background:rgba(233,69,96,.12);border:1px solid rgba(233,69,96,.25);border-radius:8px;padding:4px 12px;font-size:12px;color:#ff6b6b;font-weight:600;opacity:.6">↩ 返回 Auckland CBD</div></div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #95a5a6;background:rgba(149,165,166,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">✈️ AKL Airport <span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D3 早5:00出发</span></div><div style="font-size:12px;color:#aaa">从酒店打车 22km / 25分钟</div></div></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:2px 0;margin-left:6px"><div style="width:4px;min-height:28px;border-radius:2px;background:repeating-linear-gradient(180deg,#95a5a6 0px,#95a5a6 4px,transparent 4px,transparent 8px)"></div><div style="background:rgba(233,69,96,.12);border:1px solid rgba(233,69,96,.25);border-radius:8px;padding:4px 12px;font-size:12px;color:#ff6b6b;font-weight:600">✈️ JK261 · 1h25 <span style="color:#aaa;font-weight:400;margin-left:4px">7:15→8:40</span></div></div>
+
+  <div style="font-size:13px;color:#e94560;font-weight:700;letter-spacing:2px;margin:28px 0 16px;padding-bottom:8px;border-bottom:1px solid #2a2a4a">🏔️ 南岛 · D3 – D8（全程自驾 ~822km）</div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #95a5a6;background:rgba(149,165,166,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">✈️ CHC Airport <span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D3</span></div><div style="font-size:12px;color:#aaa">取租车（CHC取→ZQN还）· 超市 · 加油</div></div></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:2px 0;margin-left:6px"><div style="width:4px;min-height:28px;border-radius:2px;background:linear-gradient(180deg,#4ecdc4,#e94560)"></div><div style="background:rgba(233,69,96,.12);border:1px solid rgba(233,69,96,.25);border-radius:8px;padding:4px 12px;font-size:12px;color:#ff6b6b;font-weight:600">🚗 227km · 2h50 <span style="color:#aaa;font-weight:400;margin-left:4px">SH1→SH79 直路好开</span></div></div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #f1c40f;background:rgba(241,196,15,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">⛪ Lake Tekapo <span style="display:inline-block;background:rgba(241,196,15,.15);color:#f1c40f;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:6px">🏨 Peppers Bluewater</span><span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D3</span></div><div style="font-size:12px;color:#aaa">好牧羊人教堂 · 温泉 · 暗夜观星</div></div></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:2px 0;margin-left:6px"><div style="width:4px;min-height:28px;border-radius:2px;background:linear-gradient(180deg,#4ecdc4,#e94560)"></div><div style="background:rgba(233,69,96,.12);border:1px solid rgba(233,69,96,.25);border-radius:8px;padding:4px 12px;font-size:12px;color:#ff6b6b;font-weight:600">🚗 104km · 1h15 <span style="color:#aaa;font-weight:400;margin-left:4px">经 Lake Pukaki 蓝色牛奶湖</span></div></div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #4ecdc4;background:rgba(78,205,196,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">🏔️ Mt Cook <span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D4</span></div><div style="font-size:12px;color:#aaa">Hooker Valley Track 3h · 吊桥+冰川湖</div></div></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:2px 0;margin-left:6px"><div style="width:4px;min-height:28px;border-radius:2px;background:linear-gradient(180deg,#4ecdc4,#e94560)"></div><div style="background:rgba(233,69,96,.12);border:1px solid rgba(233,69,96,.25);border-radius:8px;padding:4px 12px;font-size:12px;color:#ff6b6b;font-weight:600">🚗 261km · 3h20 <span style="color:#aaa;font-weight:400;margin-left:4px">经 Lindis Pass 金色山丘</span></div></div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #f1c40f;background:rgba(241,196,15,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">🌃 Queenstown <span style="display:inline-block;background:rgba(241,196,15,.15);color:#f1c40f;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:6px">🏨 QT Park Hotel</span><span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D4 D5 D6</span></div><div style="font-size:12px;color:#aaa">连住3晚 · 冒险之都</div></div></div>
+  <div style="margin-left:40px;padding:6px 0 6px 16px;border-left:2px dashed rgba(78,205,196,.3)"><div style="font-size:13px;color:#aaa;padding:3px 0">🚢 <strong>Milford Sound</strong> — <span style="color:#ff6b6b;font-weight:600">287km/3h45 单程</span> · D5 往返</div><div style="font-size:13px;color:#aaa;padding:3px 0">🍂 <strong>Arrowtown</strong> — <span style="color:#ff6b6b;font-weight:600">21km/25min</span> · D6 秋色</div><div style="font-size:13px;color:#aaa;padding:3px 0">🚡 <strong>Skyline Gondola</strong> — <span style="color:#ff6b6b;font-weight:600">镇上2km</span> · D6 缆车+Luge</div></div>
+
+  <div style="display:flex;align-items:center;gap:14px;padding:2px 0;margin-left:6px"><div style="width:4px;min-height:28px;border-radius:2px;background:linear-gradient(180deg,#4ecdc4,#e94560)"></div><div style="background:rgba(233,69,96,.12);border:1px solid rgba(233,69,96,.25);border-radius:8px;padding:4px 12px;font-size:12px;color:#ff6b6b;font-weight:600">🚗 67km · 1h10 <span style="color:#aaa;font-weight:400;margin-left:4px">Crown Range 最高公路</span></div></div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #f1c40f;background:rgba(241,196,15,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">🌳 Wanaka <span style="display:inline-block;background:rgba(241,196,15,.15);color:#f1c40f;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:6px">🏨 Edgewater</span><span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D7</span></div><div style="font-size:12px;color:#aaa">That Wanaka Tree · Puzzling World · Lake Hawea</div></div></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:2px 0;margin-left:6px"><div style="width:4px;min-height:28px;border-radius:2px;background:linear-gradient(180deg,#4ecdc4,#e94560)"></div><div style="background:rgba(233,69,96,.12);border:1px solid rgba(233,69,96,.25);border-radius:8px;padding:4px 12px;font-size:12px;color:#ff6b6b;font-weight:600">🚗 76km · 1h05 <span style="color:#aaa;font-weight:400;margin-left:4px">还车→ZQN机场</span></div></div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #95a5a6;background:rgba(149,165,166,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">✈️ ZQN Airport <span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D8</span></div><div style="font-size:12px;color:#aaa">还车 → 飞回奥克兰</div></div></div>
+  <div style="display:flex;align-items:center;gap:14px;padding:2px 0;margin-left:6px"><div style="width:4px;min-height:28px;border-radius:2px;background:repeating-linear-gradient(180deg,#95a5a6 0px,#95a5a6 4px,transparent 4px,transparent 8px)"></div><div style="background:rgba(233,69,96,.12);border:1px solid rgba(233,69,96,.25);border-radius:8px;padding:4px 12px;font-size:12px;color:#ff6b6b;font-weight:600">✈️ Air NZ · 1h55 <span style="color:#aaa;font-weight:400;margin-left:4px">~NZ$105-120/人 需提前订</span></div></div>
+
+  <div style="font-size:13px;color:#e94560;font-weight:700;letter-spacing:2px;margin:28px 0 16px;padding-bottom:8px;border-bottom:1px solid #2a2a4a">🏙️ 回到奥克兰 · D8 – D10</div>
+
+  <div style="display:flex;align-items:flex-start;gap:14px;padding:8px 0"><div style="width:16px;height:16px;border-radius:50%;border:3px solid #f1c40f;background:rgba(241,196,15,.2);flex-shrink:0;margin-top:4px"></div><div><div style="font-size:15px;font-weight:600">🏙️ Auckland CBD <span style="display:inline-block;background:rgba(241,196,15,.15);color:#f1c40f;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:6px">🏨 Cordis Auckland</span><span style="display:inline-block;background:rgba(233,69,96,.15);color:#e94560;font-size:11px;padding:2px 8px;border-radius:8px;margin-left:4px">D8 D9</span></div><div style="font-size:12px;color:#aaa">深度游 · Devonport · Mission Bay · 购物 · D10 晚21:20飞回国</div></div></div>
+
 </div>
 
-<!-- Distance Reference Table -->
-<table class="distance-table">
-  <thead>
-    <tr><th>路段</th><th>距离</th><th>车程</th><th>备注</th></tr>
-  </thead>
-  <tbody>
-    <tr><td>🏙️ Auckland CBD → 🏡 Hobbiton</td><td class="km">173km</td><td class="time">2小时</td><td>SH1/SH27</td></tr>
-    <tr><td>🏡 Hobbiton → ✈️ AKL 机场</td><td class="km">149km</td><td class="time">1小时45分</td><td>SH27/SH1</td></tr>
-    <tr><td>✈️ CHC 机场 → ⛪ Lake Tekapo</td><td class="km">227km</td><td class="time">2小时50分</td><td>SH1/SH79 · 直路好开</td></tr>
-    <tr><td>⛪ Lake Tekapo → 🏔️ Mt Cook</td><td class="km">104km</td><td class="time">1小时15分</td><td>经 Lake Pukaki</td></tr>
-    <tr><td>🏔️ Mt Cook → 🌃 Queenstown</td><td class="km">261km</td><td class="time">3小时20分</td><td>Lindis Pass · 超美公路</td></tr>
-    <tr><td>🌃 Queenstown → 🚢 Milford Sound</td><td class="km">287km</td><td class="time">3小时45分</td><td>单程 · 往返约8h</td></tr>
-    <tr><td>🌃 Queenstown → 🍂 Arrowtown</td><td class="km">21km</td><td class="time">25分钟</td><td>很近</td></tr>
-    <tr><td>🌃 Queenstown → 🌳 Wanaka</td><td class="km">67km</td><td class="time">1小时10分</td><td>Crown Range 山路</td></tr>
-    <tr><td>🌳 Wanaka → ✈️ ZQN 机场</td><td class="km">76km</td><td class="time">1小时5分</td><td>还车</td></tr>
-    <tr style="background: rgba(233,69,96,0.1);">
-      <td>✈️ AKL → CHC</td><td class="km">✈️</td><td class="time">1小时25分</td><td>D3 · 7:15 Jetstar</td></tr>
-    <tr style="background: rgba(233,69,96,0.1);">
-      <td>✈️ ZQN → AKL</td><td class="km">✈️</td><td class="time">1小时55分</td><td>D8 · 需提前订票</td></tr>
-  </tbody>
-</table>
-
-<div class="section-note">
-  💡 <strong>南岛全程自驾约 822km</strong>，加北岛合计约 1100km。新西兰路况好，但山路多弯道+单车道桥梁，建议日均驾驶不超过 3-4 小时。5月是秋季，日落约 5:30pm，尽量天黑前到达目的地。
+<div style="background:rgba(78,205,196,.08);border:1px solid rgba(78,205,196,.2);border-radius:10px;padding:12px 16px;margin:16px 0;font-size:13px;color:#4ecdc4">
+  💡 <strong>南岛自驾约 822km</strong>，总行程约 1100km。5月秋季日落~17:30，尽量天黑前到达。新西兰靠左行驶。🟡=住宿 🟢=景点 ⚪=机场
 </div>
+
+
 
 <!-- ==================== DAILY ITINERARY ==================== -->
 <h2 class="section-title">🗓️ 每日行程</h2>
@@ -219,7 +229,7 @@
   <div class="day-header">
     <div class="day-num">Day 2 · 5月1日 周四</div>
     <h2>霍比屯一日游 🏡</h2>
-    <div class="day-route">Auckland → Hobbiton（173km/2h）→ AKL Airport（149km/1h45）</div>
+    <div class="day-route">Auckland CBD ↔ Hobbiton（往返 346km · 约4h车程）</div>
   </div>
   <div class="day-body">
     <div class="attractions-grid">
@@ -244,18 +254,18 @@
     <div class="hotel-card">
       <img src="https://images.unsplash.com/photo-1590490360182-c33d82de6e56?w=500&q=80" alt="Airport Hotel" loading="lazy"/>
       <div class="hotel-info">
-        <div class="hotel-label">🏨 推荐住宿（机场酒店）</div>
-        <h3>Novotel Auckland Airport</h3>
-        <div class="hotel-meta">📍 距国际航站楼步行 3 分钟 · 24h 免费穿梭巴士到国内航站楼</div>
-        <div class="hotel-price">~NZ$188–210 / 间 / 晚</div>
+        <div class="hotel-label">🏨 住宿（连住 · 和D1同一家）</div>
+        <h3>Cordis Auckland（和D1同一家）</h3>
+        <div class="hotel-meta">📍 CBD · 和D1同一个房间 · 省去搬行李</div>
+        <div class="hotel-price">~NZ$250–350 / 间 / 晚（和D1同价）</div>
         <div class="hotel-features">
-          <span>紧邻机场</span><span>免费接驳</span><span>好评率高</span><span>适合早班机</span>
+          <span>市中心</span><span>安全</span><span>好评率高</span><span>连住省事</span>
         </div>
       </div>
     </div>
 
     <div class="section-note">
-      ⚠️ <strong>明天要赶 7:15 早班机！</strong>需要约 5:15 AM 到国内航站楼，建议今晚 9 点前入睡，设好 4:30 AM 闹钟。
+      ⚠️ <strong>明天要赶 7:15 早班机！</strong>酒店到机场 22km/25min（凌晨无堵车），建议5:00出发。今晚9点前入睡，设好4:30 AM 闹钟。
     </div>
 
     <div class="todo-section">
@@ -731,21 +741,7 @@
 
 <!-- ==================== BUDGET SUMMARY ==================== -->
 <h2 class="section-title">💰 预算参考</h2>
-<table class="distance-table">
-  <thead><tr><th>项目</th><th>预估费用（4人合计）</th><th>备注</th></tr></thead>
-  <tbody>
-    <tr><td>✈️ 国际机票</td><td class="km">已购</td><td>CZ305/CZ306 往返</td></tr>
-    <tr><td>✈️ AKL→CHC (D3)</td><td class="km">已购</td><td>7:15 Jetstar</td></tr>
-    <tr><td>✈️ ZQN→AKL (D8)</td><td class="km">~NZ$420–480</td><td>4人 · 提前订约 NZ$105-120/人</td></tr>
-    <tr><td>🏨 住宿 9晚 × 2间</td><td class="km">~NZ$4,000–5,400</td><td>均价 NZ$220-300/间/晚</td></tr>
-    <tr><td>🚗 南岛租车 5天</td><td class="km">~NZ$400–600</td><td>CHC取 ZQN还 · 含异地还车费</td></tr>
-    <tr><td>🚗 北岛租车 1天</td><td class="km">~NZ$80–120</td><td>D2 霍比屯 · 或用 Uber</td></tr>
-    <tr><td>⛽ 油费</td><td class="km">~NZ$200–250</td><td>~1100km</td></tr>
-    <tr><td>🎫 门票活动</td><td class="km">~NZ$1,200–1,600</td><td>霍比屯+峡湾+缆车+观星等</td></tr>
-    <tr><td>🍽️ 餐饮</td><td class="km">~NZ$2,000–2,800</td><td>10天 · 人均 NZ$50-70/天</td></tr>
-    <tr style="background: rgba(78,205,196,0.15);"><td><strong>合计估算</strong></td><td class="km"><strong>~NZ$8,300–11,250</strong></td><td><strong>人均 NZ$2,075–2,813<br>≈ ¥9,000–12,200</strong></td></tr>
-  </tbody>
-</table>
+
 <div class="section-note">💡 以上不含国际机票和签证费。实际花费取决于酒店档次和活动选择。NZD:CNY 按 1:4.33 估算。</div>
 
 <!-- ==================== PACKING & TIPS ==================== -->
@@ -778,162 +774,12 @@
 
 <div class="footer">
   <p>Made with ❤️ by SureThing · 祝旅途愉快！🇳🇿</p>
-  <p style="margin-top: 8px;">最后更新：2026年3月22日</p>
+  <p style="margin-top: 8px;">最后更新：2026年3月23日</p>
 </div>
 
 </div><!-- /container -->
 
-<!-- ==================== MAP SCRIPT ==================== -->
-<script>
-// Static route map - no interaction
-const map = L.map('map', {
-  zoomControl: false,
-  dragging: false,
-  scrollWheelZoom: false,
-  doubleClickZoom: false,
-  boxZoom: false,
-  keyboard: false,
-  touchZoom: false,
-  attributionControl: false
-}).setView([-41.8, 172.5], 5);
 
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-  maxZoom: 18
-}).addTo(map);
-
-// ---- POINTS with coordinates ----
-const points = {
-  // North Island
-  aklCBD:    { lat: -36.8485, lng: 174.7633, name: 'Auckland CBD', icon: '🏙️', hotel: true },
-  hobbiton:  { lat: -37.8716, lng: 175.6830, name: 'Hobbiton', icon: '🏡' },
-  aklAirport:{ lat: -37.0082, lng: 174.7850, name: 'AKL Airport', icon: '✈️', hotel: true },
-  // South Island  
-  chcAirport:{ lat: -43.4864, lng: 172.5344, name: 'CHC Airport', icon: '✈️' },
-  tekapo:    { lat: -43.8848, lng: 170.5028, name: 'Lake Tekapo', icon: '⛪', hotel: true },
-  pukaki:    { lat: -43.5950, lng: 170.1430, name: 'Lake Pukaki', icon: '💠' },
-  mtCook:    { lat: -43.7340, lng: 170.0960, name: 'Mt Cook', icon: '🏔️' },
-  queenstown:{ lat: -44.9972, lng: 168.7557, name: 'Queenstown', icon: '🌃', hotel: true },
-  milford:   { lat: -44.6719, lng: 167.9252, name: 'Milford Sound', icon: '🚢' },
-  arrowtown: { lat: -44.9376, lng: 168.8292, name: 'Arrowtown', icon: '🍂' },
-  wanaka:    { lat: -44.6925, lng: 169.0366, name: 'Wanaka', icon: '🌳', hotel: true },
-  zqnAirport:{ lat: -45.0212, lng: 168.7395, name: 'ZQN Airport', icon: '✈️' },
-};
-
-// ---- ROUTES ----
-// North Island driving (blue)
-const northRoute = [
-  [points.aklCBD.lat, points.aklCBD.lng],
-  [-37.23, 175.01], [-37.54, 175.31],
-  [points.hobbiton.lat, points.hobbiton.lng],
-  [-37.54, 175.31], [-37.23, 175.01],
-  [points.aklAirport.lat, points.aklAirport.lng]
-];
-L.polyline(northRoute, { color: '#3498db', weight: 3, opacity: 0.9 }).addTo(map);
-
-// South Island driving (red)
-const southRoute = [
-  [points.chcAirport.lat, points.chcAirport.lng],
-  [-43.76, 171.75],
-  [points.tekapo.lat, points.tekapo.lng],
-  [points.pukaki.lat, points.pukaki.lng],
-  [points.mtCook.lat, points.mtCook.lng],
-  [-44.0, 169.83], [-44.26, 169.35], [-44.70, 169.05],
-  [points.queenstown.lat, points.queenstown.lng]
-];
-L.polyline(southRoute, { color: '#e74c3c', weight: 3, opacity: 0.9 }).addTo(map);
-
-// Milford loop (red dashed)
-const milfordRoute = [
-  [points.queenstown.lat, points.queenstown.lng],
-  [-45.25, 168.38], [-45.41, 167.72], [-45.05, 168.0], [-44.87, 167.99],
-  [points.milford.lat, points.milford.lng]
-];
-L.polyline(milfordRoute, { color: '#e74c3c', weight: 2.5, opacity: 0.7, dashArray: '8,6' }).addTo(map);
-
-// QT to Arrowtown & Wanaka
-L.polyline([
-  [points.queenstown.lat, points.queenstown.lng],
-  [points.arrowtown.lat, points.arrowtown.lng]
-], { color: '#e74c3c', weight: 2.5, opacity: 0.7 }).addTo(map);
-
-L.polyline([
-  [points.queenstown.lat, points.queenstown.lng],
-  [-44.89, 168.96],
-  [points.wanaka.lat, points.wanaka.lng]
-], { color: '#e74c3c', weight: 3, opacity: 0.9 }).addTo(map);
-
-// Wanaka to ZQN Airport
-L.polyline([
-  [points.wanaka.lat, points.wanaka.lng],
-  [points.zqnAirport.lat, points.zqnAirport.lng]
-], { color: '#e74c3c', weight: 2.5, opacity: 0.7 }).addTo(map);
-
-// Flights (gray dashed)
-L.polyline([
-  [points.aklAirport.lat, points.aklAirport.lng],
-  [-40.5, 173.5],
-  [points.chcAirport.lat, points.chcAirport.lng]
-], { color: '#95a5a6', weight: 2, dashArray: '6,8', opacity: 0.6 }).addTo(map);
-
-L.polyline([
-  [points.zqnAirport.lat, points.zqnAirport.lng],
-  [-40.5, 172],
-  [points.aklAirport.lat, points.aklAirport.lng]
-], { color: '#95a5a6', weight: 2, dashArray: '6,8', opacity: 0.6 }).addTo(map);
-
-// ---- MARKERS ----
-Object.entries(points).forEach(([key, pt]) => {
-  const isHotel = pt.hotel;
-  const markerColor = isHotel ? '#f1c40f' : '#4ecdc4';
-  const markerSize = isHotel ? 8 : 6;
-  
-  const marker = L.circleMarker([pt.lat, pt.lng], {
-    radius: markerSize,
-    fillColor: markerColor,
-    color: '#fff',
-    weight: 2,
-    fillOpacity: 0.9
-  }).addTo(map);
-  
-  marker.bindTooltip(`${pt.icon} ${pt.name}`, {
-    permanent: true,
-    direction: 'right',
-    offset: [10, 0],
-    className: 'map-label'
-  });
-});
-
-// ---- DISTANCE LABELS ----
-function addDistLabel(lat, lng, text) {
-  const icon = L.divIcon({
-    html: `<div style="background:rgba(0,0,0,0.7);color:#ff6b6b;padding:2px 6px;border-radius:4px;font-size:10px;font-weight:600;white-space:nowrap;border:1px solid rgba(233,69,96,0.4);">${text}</div>`,
-    className: '',
-    iconAnchor: [0, 0]
-  });
-  L.marker([lat, lng], { icon, interactive: false }).addTo(map);
-}
-
-// North Island distances
-addDistLabel(-37.35, 175.40, '173km / 2h');
-addDistLabel(-37.30, 174.70, '149km / 1h45');
-
-// Flights
-addDistLabel(-39.8, 174.2, '✈️ 1h25');
-addDistLabel(-40.5, 170.5, '✈️ 1h55');
-
-// South Island distances
-addDistLabel(-43.68, 171.80, '227km / 2h50');
-addDistLabel(-43.72, 170.25, '104km / 1h15');
-addDistLabel(-44.30, 169.50, '261km / 3h20');
-addDistLabel(-44.80, 167.40, '287km / 3h45');
-addDistLabel(-44.93, 169.10, '21km');
-addDistLabel(-44.70, 168.80, '67km / 1h10');
-
-// Add custom CSS for map labels
-const style = document.createElement('style');
-style.textContent = `.map-label { background: transparent !important; border: none !important; box-shadow: none !important; color: #eee; font-size: 11px; font-weight: 600; font-family: -apple-system, sans-serif; text-shadow: 0 0 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.5); }`;
-document.head.appendChild(style);
-</script>
 
 </body>
 </html>
