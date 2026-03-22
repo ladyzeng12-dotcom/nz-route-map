@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇳🇿 新西兰10天自驾路线图</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0f1a;color:#c4d4e4}
+#map{width:100%;height:60vh;min-height:350px;border-bottom:2px solid #1e293b}
+.header{text-align:center;padding:16px 12px 10px;background:linear-gradient(135deg,#0a0f1a,#1a2332)}
+.header h1{font-size:1.4em;background:linear-gradient(135deg,#6dd5ed,#2193b0);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header p{font-size:0.85em;color:#8ca8c4;margin-top:4px}
+.legend{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;padding:10px 12px;background:#111827;border-bottom:1px solid #1e293b;font-size:0.78em}
+.legend-item{display:flex;align-items:center;gap:4px;cursor:pointer;opacity:1;transition:opacity 0.2s}
+.legend-item.dimmed{opacity:0.3}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.day-list{max-width:900px;margin:0 auto;padding:12px}
+.day-section{background:#111827;border:1px solid #1e293b;border-radius:10px;margin-bottom:10px;overflow:hidden}
+.day-title{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;cursor:pointer;user-select:none}
+.day-title h3{font-size:0.95em;display:flex;align-items:center;gap:8px}
+.day-title .dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.day-title .arrow{transition:transform 0.2s;color:#6dd5ed;font-size:0.8em}
+.day-title .arrow.open{transform:rotate(90deg)}
+.day-body{display:none;padding:0 14px 12px;font-size:0.88em;line-height:1.7}
+.day-body.open{display:block}
+.stop{padding:6px 0;border-bottom:1px solid #1e293b}
+.stop:last-child{border:none}
+.stop-name{font-weight:600;color:#e2e8f0}
+.stop-meta{color:#8ca8c4;font-size:0.85em}
+.drive-tag{display:inline-block;background:rgba(109,213,237,0.1);border:1px solid rgba(109,213,237,0.2);border-radius:12px;padding:2px 10px;font-size:0.8em;color:#6dd5ed;margin:6px 0}
+.gmap-btn{display:inline-block;background:linear-gradient(135deg,#2193b0,#1a7a8a);color:#fff;padding:8px 16px;border-radius:8px;text-decoration:none;font-size:0.85em;margin-top:8px;transition:transform 0.1s}
+.gmap-btn:hover{transform:scale(1.02);text-decoration:none}
+.island-label{text-align:center;padding:8px;font-size:0.8em;color:#6dd5ed;letter-spacing:1px;text-transform:uppercase}
+.footer{text-align:center;padding:20px;font-size:0.78em;color:#64748b}
+/* Custom marker styles */
+.custom-marker{background:none;border:none}
+.marker-pin{width:24px;height:24px;border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,0.4)}
+.leaflet-popup-content-wrapper{background:#1a2332;color:#c4d4e4;border-radius:8px;border:1px solid #2d3748}
+.leaflet-popup-tip{background:#1a2332}
+.leaflet-popup-content{margin:10px 14px;font-size:13px;line-height:1.6}
+.leaflet-popup-content strong{color:#6dd5ed}
+.leaflet-popup-content a{color:#6dd5ed}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🇳🇿 新西兰10天自驾路线图</h1>
+  <p>4月30日 – 5月9日 · 点击地图标记查看详情 · 点击下方每天展开路线</p>
+</div>
+<div id="map"></div>
+<div class="legend" id="legend"></div>
+
+<div class="day-list" id="dayList"></div>
+<div class="footer">🇳🇿 Made with ❤️ by SureThing · 点击「在 Google Maps 中打开」可直接导航</div>
+
+<script>
+const DAYS = [
+  {
+    day: 1, date: "4/30 周三", title: "奥克兰到达", color: "#ef4444", island: "north",
+    stops: [
+      { name: "奥克兰机场 AKL", lat: -37.0082, lng: 174.7850, type: "transport", meta: "15:40 到达" },
+      { name: "天空塔 Sky Tower", lat: -36.8485, lng: 174.7633, type: "attraction", meta: "市区地标，可登塔观景" },
+      { name: "奥克兰海滨 Viaduct Harbour", lat: -36.8429, lng: 174.7577, type: "attraction", meta: "晚餐推荐区域" },
+    ],
+    hotels: ["CityLife Auckland / Grand Millennium"],
+    drive: null,
+    gmapUrl: "https://www.google.com/maps/dir/Auckland+Airport/Sky+Tower+Auckland/Viaduct+Harbour+Auckland"
+  },
+  {
+    day: 2, date: "5/1 周四", title: "奥克兰 → 霍比屯 → 罗托鲁瓦", color: "#f97316", island: "north",
+    stops: [
+      { name: "奥克兰出发", lat: -36.8485, lng: 174.7633, type: "start", meta: "8:00am 出发" },
+      { name: "霍比屯 Hobbiton", lat: -37.8720, lng: 175.6830, type: "attraction", meta: "⏱ 2小时 · NZ$89/人 · 需预约" },
+      { name: "Te Puia 地热公园", lat: -38.1618, lng: 176.2488, type: "attraction", meta: "间歇泉+毛利文化 · NZ$85/人" },
+      { name: "Wai-O-Tapu 地热仙境", lat: -38.3545, lng: 176.3680, type: "attraction", meta: "彩色温泉 · NZ$40/人" },
+      { name: "罗托鲁瓦湖", lat: -38.0833, lng: 176.2667, type: "attraction", meta: "湖边散步/晚餐" },
+    ],
+    hotels: ["Sudima Rotorua / Holiday Inn"],
+    drive: "奥克兰→霍比屯 170km/2h · 霍比屯→罗托鲁瓦 80km/1h",
+    gmapUrl: "https://www.google.com/maps/dir/Auckland/Hobbiton+Movie+Set+Matamata/Te+Puia+Rotorua/Wai-O-Tapu+Thermal+Wonderland/Lake+Rotorua"
+  },
+  {
+    day: 3, date: "5/2 周五", title: "飞基督城 → 蒂卡波湖", color: "#eab308", island: "south",
+    stops: [
+      { name: "罗托鲁瓦机场 ROT ✈️", lat: -38.1092, lng: 176.3172, type: "transport", meta: "10:00am 航班 → 基督城" },
+      { name: "基督城机场 CHC", lat: -43.4864, lng: 172.5369, type: "transport", meta: "~12:00 到达 · 取车" },
+      { name: "Fairlie Bakehouse", lat: -44.0992, lng: 171.2314, type: "food", meta: "途中午餐 · 著名派饼店" },
+      { name: "好牧羊人教堂", lat: -44.0039, lng: 170.4814, type: "attraction", meta: "⛪ 蒂卡波地标 · 免费 · 星空拍照绝佳" },
+      { name: "蒂卡波湖 Lake Tekapo", lat: -44.0047, lng: 170.4772, type: "attraction", meta: "暗夜保护区 · 观星 NZ$100-180/人" },
+    ],
+    hotels: ["Peppers Bluewater Resort (首选) / The Godley Hotel"],
+    drive: "基督城→蒂卡波 230km/3h",
+    gmapUrl: "https://www.google.com/maps/dir/Christchurch+Airport/Fairlie+Bakehouse/Church+of+the+Good+Shepherd+Lake+Tekapo/Lake+Tekapo"
+  },
+  {
+    day: 4, date: "5/3 周六", title: "蒂卡波 → 库克山", color: "#22c55e", island: "south",
+    stops: [
+      { name: "蒂卡波出发", lat: -44.0047, lng: 170.4772, type: "start", meta: "上午出发" },
+      { name: "普卡基湖观景点", lat: -44.1753, lng: 170.1539, type: "attraction", meta: "\"牛奶蓝\"冰川湖 · 免费" },
+      { name: "库克山村 Mt Cook Village", lat: -43.7350, lng: 170.0982, type: "attraction", meta: "新西兰最高峰 3724m" },
+      { name: "胡克谷步道 Hooker Valley", lat: -43.7180, lng: 170.0840, type: "attraction", meta: "🥾 往返 10km/3-4h · 免费 · 必走！" },
+    ],
+    hotels: ["The Hermitage Hotel (首选) / Aoraki Court Motel"],
+    drive: "蒂卡波→库克山 105km/1h15min",
+    gmapUrl: "https://www.google.com/maps/dir/Lake+Tekapo/Lake+Pukaki+Viewing+Point/Aoraki+Mount+Cook+Village/Hooker+Valley+Track"
+  },
+  {
+    day: 5, date: "5/4 周日", title: "库克山 → 皇后镇", color: "#14b8a6", island: "south",
+    stops: [
+      { name: "库克山出发", lat: -43.7350, lng: 170.0982, type: "start", meta: "早上出发" },
+      { name: "林迪斯隘口 Lindis Pass", lat: -44.5994, lng: 169.7914, type: "attraction", meta: "海拔971m · 金色丘陵公路 · 拍照" },
+      { name: "克伦威尔水果小镇 Cromwell", lat: -45.0386, lng: 169.1978, type: "food", meta: "路边水果摊 · 休息加油" },
+      { name: "箭镇 Arrowtown", lat: -44.9373, lng: 168.8278, type: "attraction", meta: "🍂 5月秋叶最美！Buckingham St 必逛" },
+      { name: "皇后镇 Skyline 缆车", lat: -45.0283, lng: 168.6571, type: "attraction", meta: "缆车+Luge NZ$69/人 · 俯瞰湖景" },
+      { name: "皇后镇中心", lat: -45.0312, lng: 168.6626, type: "attraction", meta: "湖畔晚餐 · Fergburger" },
+    ],
+    hotels: ["Crowne Plaza Queenstown / Holiday Inn Remarkables"],
+    drive: "库克山→皇后镇 265km/3.5h（经 Lindis Pass）",
+    gmapUrl: "https://www.google.com/maps/dir/Aoraki+Mount+Cook+Village/Lindis+Pass/Cromwell+New+Zealand/Arrowtown/Skyline+Queenstown/Queenstown"
+  },
+  {
+    day: 6, date: "5/5 周一", title: "米尔福德峡湾一日游", color: "#3b82f6", island: "south",
+    stops: [
+      { name: "皇后镇出发", lat: -45.0312, lng: 168.6626, type: "start", meta: "7:00am 出发" },
+      { name: "蒂阿瑙 Te Anau", lat: -45.4140, lng: 167.7181, type: "food", meta: "途中休息/加油 · 2h" },
+      { name: "镜湖 Mirror Lakes", lat: -44.9397, lng: 167.9136, type: "attraction", meta: "停车拍照 5min · 免费" },
+      { name: "荷马隧道 Homer Tunnel", lat: -44.7619, lng: 167.9678, type: "attraction", meta: "单向隧道 · 可能需等 20min" },
+      { name: "米尔福德峡湾 Milford Sound", lat: -44.6714, lng: 167.9256, type: "attraction", meta: "🚢 巡游 2h · NZ$70-95/人" },
+    ],
+    hotels: ["皇后镇（同D5酒店）"],
+    drive: "皇后镇↔米尔福德 往返 600km/10h（含游玩）",
+    gmapUrl: "https://www.google.com/maps/dir/Queenstown/Te+Anau/Mirror+Lakes+New+Zealand/Homer+Tunnel/Milford+Sound"
+  },
+  {
+    day: 7, date: "5/6 周二", title: "皇后镇 → 瓦纳卡", color: "#8b5cf6", island: "south",
+    stops: [
+      { name: "皇后镇出发", lat: -45.0312, lng: 168.6626, type: "start", meta: "上午出发" },
+      { name: "皇冠山脉公路 Crown Range", lat: -44.9667, lng: 169.0167, type: "attraction", meta: "⚠️ 新西兰最高公路 · 5月可能要雪链" },
+      { name: "Cardrona 网红胸罩栅栏", lat: -44.8639, lng: 169.0264, type: "attraction", meta: "路边打卡点" },
+      { name: "瓦纳卡之树 That Wanaka Tree", lat: -44.6926, lng: 169.1211, type: "attraction", meta: "🌳 网红孤树 · 日出/日落拍" },
+      { name: "瓦纳卡湖 Lake Wanaka", lat: -44.6933, lng: 169.1322, type: "attraction", meta: "湖边散步/咖啡" },
+    ],
+    hotels: ["Edgewater Hotel (首选，湖景) / Wanaka Hotel"],
+    drive: "皇后镇→瓦纳卡 70km/1.5h（Crown Range）",
+    gmapUrl: "https://www.google.com/maps/dir/Queenstown/Crown+Range+Road/Cardrona+Bra+Fence/That+Wanaka+Tree/Lake+Wanaka"
+  },
+  {
+    day: 8, date: "5/7 周三", title: "皇后镇自由日", color: "#ec4899", island: "south",
+    stops: [
+      { name: "格莱诺基 Glenorchy", lat: -44.8500, lng: 168.3833, type: "attraction", meta: "🎬 魔戒取景地 · NZ$250-300/人" },
+      { name: "TSS Earnslaw 蒸汽船", lat: -45.0295, lng: 168.6583, type: "attraction", meta: "🚢 百年蒸汽船+牧场 NZ$99-125/人" },
+      { name: "Onsen Hot Pools", lat: -45.0036, lng: 168.7275, type: "attraction", meta: "♨️ 悬崖温泉 NZ$65/人 需预约" },
+      { name: "Fergburger", lat: -45.0314, lng: 168.6610, type: "food", meta: "🍔 新西兰最有名的汉堡 · 排队30min+" },
+    ],
+    hotels: ["皇后镇（二选一活动日）"],
+    drive: "皇后镇→格莱诺基 45km/50min（如选方案1）",
+    gmapUrl: "https://www.google.com/maps/dir/Queenstown/Glenorchy"
+  },
+  {
+    day: 9, date: "5/8 周四", title: "皇后镇 → 但尼丁 → 摩拉基", color: "#f43f5e", island: "south",
+    stops: [
+      { name: "皇后镇出发", lat: -45.0312, lng: 168.6626, type: "start", meta: "8:00am 出发" },
+      { name: "但尼丁 八角广场", lat: -45.8742, lng: 170.5036, type: "attraction", meta: "🏛️ 苏格兰风城市 · 火车站+大学" },
+      { name: "但尼丁火车站", lat: -45.8788, lng: 170.5048, type: "attraction", meta: "文艺复兴建筑 · 拍照" },
+      { name: "摩拉基大圆石 Moeraki Boulders", lat: -45.3457, lng: 170.8262, type: "attraction", meta: "🪨 6500万年巨石 · 免费 · 查潮汐" },
+    ],
+    hotels: ["Scenic Hotel Dunedin City / 或继续开到基督城"],
+    drive: "皇后镇→但尼丁 290km/3.5h · 但尼丁→摩拉基 75km/1h",
+    gmapUrl: "https://www.google.com/maps/dir/Queenstown/The+Octagon+Dunedin/Dunedin+Railway+Station/Moeraki+Boulders"
+  },
+  {
+    day: 10, date: "5/9 周五", title: "基督城 → 回家 ✈️", color: "#a855f7", island: "south",
+    stops: [
+      { name: "纸板教堂 Cardboard Cathedral", lat: -43.5351, lng: 172.6444, type: "attraction", meta: "震后重建标志 · 免费" },
+      { name: "雅芳河 Avon River", lat: -43.5307, lng: 172.6369, type: "attraction", meta: "河边漫步" },
+      { name: "基督城机场 CHC ✈️", lat: -43.4864, lng: 172.5369, type: "transport", meta: "还车 → 飞奥克兰 → CZ306 21:20回广州" },
+    ],
+    hotels: ["✈️ 飞回家！"],
+    drive: "摩拉基→基督城 285km/3.5h",
+    gmapUrl: "https://www.google.com/maps/dir/Moeraki+Boulders/Christchurch+Transitional+Cathedral/Christchurch+Airport"
+  }
+];
+
+// ===== MAP =====
+const map = L.map('map', { zoomControl: true }).setView([-43.5, 171], 6);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '© OpenStreetMap © CARTO', maxZoom: 18
+}).addTo(map);
+
+const dayLayers = {};
+const markerLayers = {};
+
+DAYS.forEach(d => {
+  const group = L.layerGroup().addTo(map);
+  const mGroup = L.layerGroup().addTo(map);
+  dayLayers[d.day] = group;
+  markerLayers[d.day] = mGroup;
+
+  // Draw route polyline
+  const coords = d.stops.map(s => [s.lat, s.lng]);
+  if (coords.length > 1) {
+    L.polyline(coords, { color: d.color, weight: 3, opacity: 0.7, dashArray: '8,6' }).addTo(group);
+  }
+
+  // Add markers
+  d.stops.forEach((s, i) => {
+    const icon = L.divIcon({
+      className: 'custom-marker',
+      html: `<div class="marker-pin" style="background:${d.color}">D${d.day}</div>`,
+      iconSize: [24, 24], iconAnchor: [12, 12]
+    });
+    const marker = L.marker([s.lat, s.lng], { icon }).addTo(mGroup);
+    marker.bindPopup(`<strong>${s.name}</strong><br>${s.meta}<br><a href="https://www.google.com/maps/search/?api=1&query=${s.lat},${s.lng}" target="_blank">📍 Google Maps</a>`);
+  });
+});
+
+// ===== LEGEND =====
+const legendEl = document.getElementById('legend');
+DAYS.forEach(d => {
+  const item = document.createElement('div');
+  item.className = 'legend-item';
+  item.dataset.day = d.day;
+  item.innerHTML = `<span class="legend-dot" style="background:${d.color}"></span>D${d.day}`;
+  item.onclick = () => toggleDay(d.day);
+  legendEl.appendChild(item);
+});
+
+let hiddenDays = new Set();
+function toggleDay(day) {
+  if (hiddenDays.has(day)) {
+    hiddenDays.delete(day);
+    map.addLayer(dayLayers[day]);
+    map.addLayer(markerLayers[day]);
+    document.querySelector(`.legend-item[data-day="${day}"]`).classList.remove('dimmed');
+  } else {
+    hiddenDays.add(day);
+    map.removeLayer(dayLayers[day]);
+    map.removeLayer(markerLayers[day]);
+    document.querySelector(`.legend-item[data-day="${day}"]`).classList.add('dimmed');
+  }
+}
+
+// ===== DAY LIST =====
+const listEl = document.getElementById('dayList');
+let currentIsland = '';
+DAYS.forEach(d => {
+  if (d.island !== currentIsland) {
+    currentIsland = d.island;
+    const label = document.createElement('div');
+    label.className = 'island-label';
+    label.textContent = d.island === 'north' ? '── 🏝️ 北岛 North Island ──' : '── 🏔️ 南岛 South Island ──';
+    listEl.appendChild(label);
+  }
+
+  const sec = document.createElement('div');
+  sec.className = 'day-section';
+
+  let stopsHtml = d.stops.map(s => `
+    <div class="stop">
+      <div class="stop-name">${typeIcon(s.type)} ${s.name}</div>
+      <div class="stop-meta">${s.meta}</div>
+    </div>`).join('');
+
+  if (d.drive) stopsHtml = `<div class="drive-tag">🚗 ${d.drive}</div>` + stopsHtml;
+  stopsHtml += `<div style="margin-top:4px;font-size:0.85em;color:#8ca8c4">🏨 ${d.hotels.join(' / ')}</div>`;
+  stopsHtml += `<a class="gmap-btn" href="${d.gmapUrl}" target="_blank">📍 在 Google Maps 中打开本日路线</a>`;
+
+  sec.innerHTML = `
+    <div class="day-title" onclick="toggleSection(this)">
+      <h3><span class="dot" style="background:${d.color}"></span>D${d.day} · ${d.title}</h3>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:0.78em;color:#8ca8c4">${d.date}</span>
+        <span class="arrow">▶</span>
+      </div>
+    </div>
+    <div class="day-body">${stopsHtml}</div>`;
+  listEl.appendChild(sec);
+});
+
+function typeIcon(t) {
+  return { attraction:'📍', transport:'✈️', food:'🍽️', start:'🚗' }[t] || '📍';
+}
+
+function toggleSection(el) {
+  const body = el.nextElementSibling;
+  const arrow = el.querySelector('.arrow');
+  body.classList.toggle('open');
+  arrow.classList.toggle('open');
+  // Zoom map to this day's stops
+  if (body.classList.contains('open')) {
+    const day = parseInt(el.querySelector('h3').textContent.match(/D(\d+)/)[1]);
+    const d = DAYS.find(x => x.day === day);
+    if (d && d.stops.length > 1) {
+      const bounds = L.latLngBounds(d.stops.map(s => [s.lat, s.lng]));
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 10 });
+    } else if (d && d.stops.length === 1) {
+      map.setView([d.stops[0].lat, d.stops[0].lng], 10);
+    }
+  }
+}
+
+// Full route links
+const fullNorth = "https://www.google.com/maps/dir/Auckland+Airport/Sky+Tower+Auckland/Hobbiton+Movie+Set+Matamata/Te+Puia+Rotorua/Rotorua";
+const fullSouth = "https://www.google.com/maps/dir/Christchurch+Airport/Lake+Tekapo/Aoraki+Mount+Cook+Village/Queenstown/Milford+Sound/Wanaka/Queenstown/Dunedin/Moeraki+Boulders/Christchurch+Airport";
+
+// Add full route section
+const fullDiv = document.createElement('div');
+fullDiv.style.cssText = 'text-align:center;padding:16px;';
+fullDiv.innerHTML = `
+  <a class="gmap-btn" href="${fullNorth}" target="_blank" style="margin:4px">🏝️ 北岛全程路线（Google Maps）</a>
+  <a class="gmap-btn" href="${fullSouth}" target="_blank" style="margin:4px">🏔️ 南岛全程路线（Google Maps）</a>`;
+listEl.appendChild(fullDiv);
+</script>
+</body>
+</html>
