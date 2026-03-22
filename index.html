@@ -121,218 +121,187 @@
 <h2 class="section-title">📍 全程路线总图</h2>
 
 <div style="background:#fff;border-radius:16px;padding:20px 10px;margin:24px 0;overflow-x:auto">
-  <svg viewBox="0 0 720 1200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;margin:0 auto;display:block;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
-    <defs>
-      <filter id="sh" x="-8%" y="-8%" width="120%" height="120%">
-        <feDropShadow dx="0.5" dy="1.5" stdDeviation="2" flood-opacity="0.10"/>
-      </filter>
-      <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-        <path d="M0,0 L8,3 L0,6" fill="#e94560" opacity="0.5"/>
-      </marker>
-    </defs>
+  <svg viewBox="0 0 720 1100" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;margin:0 auto;display:block">
+    <style>
+      .loc { font: 700 13px -apple-system,sans-serif; fill: #222; }
+      .loc-sm { font: 600 11px -apple-system,sans-serif; fill: #555; }
+      .sub { font: 400 9px -apple-system,sans-serif; fill: #999; }
+      .dist { font: 500 8.5px -apple-system,sans-serif; fill: #e94560; }
+      .day { font: 700 10px -apple-system,sans-serif; fill: #e94560; }
+      .flight-info { font: 500 9px -apple-system,sans-serif; fill: #888; }
+      .island { font: 700 13px Georgia,serif; fill: #e94560; opacity: 0.55; }
+    </style>
 
-    <!-- ============ TITLE ============ -->
-    <text x="360" y="36" text-anchor="middle" font-size="22" font-weight="800" fill="#e94560">🇳🇿 新西兰 10 天自驾路线图</text>
-    <text x="360" y="58" text-anchor="middle" font-size="11.5" fill="#bbb">April 30 – May 9, 2026 · 4人闺蜜游</text>
+    <!-- TITLE -->
+    <text x="360" y="32" text-anchor="middle" font-size="20" font-weight="800" fill="#e94560" font-family="Georgia,serif">🇳🇿 新西兰 10 天路线图</text>
+    <text x="360" y="50" text-anchor="middle" font-size="10.5" fill="#ccc">Apr 30 – May 9, 2026 · 4人自驾</text>
 
-    <!-- ============ LEGEND ============ -->
-    <rect x="130" y="70" width="460" height="26" rx="6" fill="#fafafa" stroke="#eee" stroke-width="1"/>
-    <circle cx="155" cy="83" r="5.5" fill="#e94560" stroke="#fff" stroke-width="1.5"/>
-    <text x="165" y="87" font-size="9.5" fill="#888">住宿城市</text>
-    <circle cx="232" cy="83" r="4.5" fill="#4ecdc4" stroke="#fff" stroke-width="1.5"/>
-    <text x="241" y="87" font-size="9.5" fill="#888">景点</text>
-    <circle cx="285" cy="83" r="4" fill="#999" stroke="#fff" stroke-width="1"/>
-    <text x="294" y="87" font-size="9.5" fill="#888">机场</text>
-    <rect x="340" y="78" width="20" height="2.5" rx="1" fill="#e94560"/>
-    <text x="365" y="87" font-size="9.5" fill="#888">自驾</text>
-    <line x1="403" y1="83" x2="423" y2="83" stroke="#666" stroke-width="1.8" stroke-dasharray="4,3"/>
-    <text x="428" y="87" font-size="9.5" fill="#888">航班</text>
-    <rect x="468" y="77" width="44" height="14" rx="7" fill="#333" opacity="0.8"/>
-    <text x="490" y="87" text-anchor="middle" font-size="8" fill="#fff">距离时间</text>
-    <text x="530" y="87" font-size="9" fill="#e91e63">❤️ 必去</text>
+    <!-- LEGEND -->
+    <g transform="translate(160,64)">
+      <circle cx="0" cy="0" r="5" fill="#e94560"/>
+      <text x="9" y="4" class="sub">住宿</text>
+      <circle cx="50" cy="0" r="4" fill="#4ecdc4"/>
+      <text x="58" y="4" class="sub">景点</text>
+      <circle cx="100" cy="0" r="3.5" fill="#aaa"/>
+      <text x="108" y="4" class="sub">机场</text>
+      <line x1="148" y1="0" x2="163" y2="0" stroke="#e94560" stroke-width="2"/>
+      <text x="168" y="4" class="sub">自驾</text>
+      <line x1="198" y1="0" x2="216" y2="0" stroke="#888" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="221" y="4" class="sub">航班</text>
+      <text x="255" y="4" class="dist">2h/100km</text>
+      <text x="310" y="4" class="sub">= 距离</text>
+    </g>
 
-    <!-- ================================================================ -->
-    <!--                    NORTH ISLAND                                   -->
-    <!-- ================================================================ -->
-    <text x="480" y="130" font-size="14" font-weight="700" fill="#e94560" opacity="0.7">北 岛</text>
+    <!-- =============================== -->
+    <!--   FLIGHT AKL→CHC: LEFT side     -->
+    <!-- =============================== -->
+    <path d="M 420,168 Q 280,165 200,280 Q 140,400 200,440 Q 280,460 400,448"
+          stroke="#888" stroke-width="1.5" stroke-dasharray="6,4" fill="none"/>
+    <text x="138" y="310" class="flight-info">✈ D3 JQ227</text>
+    <text x="138" y="323" class="flight-info">07:15→08:40</text>
 
-    <!-- North Island outline (simplified) -->
-    <path d="M 400,140 Q 440,130 460,155 Q 490,185 480,225 Q 470,270 450,300
-             Q 440,320 420,335 Q 400,345 385,330 Q 370,310 378,280
-             Q 386,250 392,220 Q 396,185 400,140 Z"
-          fill="#e8f5e9" stroke="#a5d6a7" stroke-width="1.2" opacity="0.5"/>
+    <!-- =============================== -->
+    <!--   FLIGHT DUD→AKL: RIGHT side    -->
+    <!-- =============================== -->
+    <path d="M 360,975 Q 530,960 600,850 Q 640,700 620,500 Q 600,300 530,200 Q 490,170 438,175"
+          stroke="#888" stroke-width="1.5" stroke-dasharray="6,4" fill="none"/>
+    <text x="620" y="560" class="flight-info">✈ D10 JQ282</text>
+    <text x="620" y="573" class="flight-info">11:50→13:35</text>
 
-    <!-- ---- AKL Airport ---- -->
-    <circle cx="420" cy="190" r="5" fill="#999" stroke="#fff" stroke-width="1.5"/>
-    <text x="432" y="188" font-size="9" fill="#999">AKL ✈️</text>
-    <text x="432" y="200" font-size="8.5" fill="#bbb">D1 15:40到</text>
+    <!-- =============================== -->
+    <!--        NORTH ISLAND             -->
+    <!-- =============================== -->
+    <text x="490" y="108" class="island">北 岛</text>
 
-    <!-- ---- Auckland City (Cordis Hotel) ---- -->
-    <circle cx="428" cy="208" r="8" fill="#e94560" stroke="#fff" stroke-width="2" filter="url(#sh)"/>
-    <!-- Label box -->
-    <rect x="445" y="200" width="185" height="40" rx="8" fill="#e94560" filter="url(#sh)"/>
-    <text x="453" y="216" font-size="12" fill="#fff" font-weight="700">Auckland 奥克兰</text>
-    <text x="453" y="232" font-size="9" fill="rgba(255,255,255,0.8)">🏨 Cordis · D1 D2 连住 · D10回</text>
+    <!-- North Island outline -->
+    <path d="M 410,105 Q 455,95 470,125 Q 500,160 490,210 Q 478,265 455,300
+             Q 442,325 420,340 Q 400,350 385,332 Q 368,310 378,275
+             Q 388,242 395,210 Q 400,165 410,105 Z"
+          fill="#f1f8e9" stroke="#c5e1a5" stroke-width="1" opacity="0.4"/>
 
-    <!-- attractions near Auckland -->
-    <circle cx="440" cy="230" r="3.5" fill="#4ecdc4"/>
-    <text x="448" y="248" font-size="8.5" fill="#4ecdc4">Sky Tower · Viaduct 码头 · Mt Eden</text>
+    <!-- AKL Airport -->
+    <circle cx="425" cy="170" r="4" fill="#aaa"/>
+    <text x="382" y="166" class="loc-sm" text-anchor="end">AKL 机场</text>
+    <text x="382" y="178" class="sub" text-anchor="end">D1 15:40到</text>
 
-    <!-- AKL → Cordis distance -->
-    <line x1="423" y1="195" x2="427" y2="203" stroke="#e94560" stroke-width="2"/>
-    <text x="406" y="202" font-size="7.5" fill="#888" text-anchor="end">22km</text>
+    <!-- line AKL → Auckland City -->
+    <line x1="425" y1="176" x2="430" y2="198" stroke="#e94560" stroke-width="2"/>
+    <text x="440" y="190" class="dist">22km</text>
 
-    <!-- ---- Route: Auckland → Hobbiton ---- -->
-    <line x1="428" y1="220" x2="448" y2="275" stroke="#e94560" stroke-width="3" marker-end="url(#arrow)"/>
+    <!-- Auckland City (Cordis) -->
+    <circle cx="432" cy="206" r="7" fill="#e94560" stroke="#fff" stroke-width="2"/>
+    <text x="446" y="203" class="loc">Auckland 奥克兰</text>
+    <text x="446" y="216" class="sub">🏨 Cordis · D1 D2住 · D10回</text>
 
-    <!-- Distance pill AKL→Hobbiton -->
-    <rect x="450" y="240" width="80" height="16" rx="8" fill="#333" opacity="0.85"/>
-    <text x="490" y="251" text-anchor="middle" font-size="8.5" fill="#fff">🚗 173km · 2h</text>
+    <!-- AKL attractions -->
+    <circle cx="448" cy="228" r="3" fill="#4ecdc4"/>
+    <text x="455" y="232" class="sub">Sky Tower · Mt Eden · Viaduct</text>
 
-    <!-- ---- Hobbiton ---- -->
-    <circle cx="450" cy="282" r="7" fill="#4ecdc4" stroke="#fff" stroke-width="2" filter="url(#sh)"/>
-    <rect x="465" y="272" width="148" height="24" rx="8" fill="#ff9800" filter="url(#sh)"/>
-    <text x="473" y="289" font-size="11.5" fill="#fff" font-weight="700">🏡 D2 Hobbiton 霍比屯</text>
+    <!-- line Auckland → Hobbiton -->
+    <line x1="435" y1="215" x2="452" y2="275" stroke="#e94560" stroke-width="2"/>
+    <text x="460" y="248" class="dist">173km · 2h</text>
 
-    <!-- ================================================================ -->
-    <!-- FLIGHT: AKL → CHC  (dashed line) -->
-    <!-- ================================================================ -->
-    <path d="M 420,200 Q 350,350 400,440" stroke="#666" stroke-width="2" stroke-dasharray="8,5" fill="none"/>
-    <!-- Flight info pill -->
-    <rect x="310" y="340" width="150" height="20" rx="10" fill="#555" opacity="0.9"/>
-    <text x="385" y="354" text-anchor="middle" font-size="9" fill="#fff">✈️ JQ227 · 07:15→08:40</text>
-    <text x="310" y="372" font-size="8.5" fill="#999">D3 (5/2) 奥克兰→基督城</text>
+    <!-- Hobbiton -->
+    <circle cx="455" cy="282" r="5.5" fill="#4ecdc4" stroke="#fff" stroke-width="1.5"/>
+    <text x="467" y="280" class="loc-sm">Hobbiton 霍比屯</text>
+    <text x="467" y="292" class="day">D2 一日游 → 返回Cordis</text>
 
-    <!-- ================================================================ -->
-    <!--                    SOUTH ISLAND                                   -->
-    <!-- ================================================================ -->
-    <text x="480" y="430" font-size="14" font-weight="700" fill="#e94560" opacity="0.7">南 岛</text>
-    <text x="480" y="446" font-size="9" fill="#ccc">自驾 ~1016km</text>
+    <!-- D10 return label near AKL -->
+    <text x="446" y="242" class="flight-info">D10 ✈ CZ306 21:20 回广州</text>
 
-    <!-- South Island outline (simplified, elongated, includes Dunedin area) -->
-    <path d="M 395,430 Q 425,418 448,438 Q 470,460 478,510 Q 485,565 475,630
-             Q 465,700 445,760 Q 425,820 400,870 Q 380,910 355,940
-             Q 335,960 318,950 Q 300,935 295,900 Q 290,860 300,810
-             Q 310,760 315,710 Q 318,660 318,610 Q 320,560 335,510
-             Q 350,465 370,445 Q 385,435 395,430 Z"
-          fill="#e8f5e9" stroke="#a5d6a7" stroke-width="1.2" opacity="0.5"/>
+    <!-- =============================== -->
+    <!--        SOUTH ISLAND             -->
+    <!-- =============================== -->
+    <text x="495" y="415" class="island">南 岛</text>
+    <text x="495" y="430" class="sub">自驾 ~1016km</text>
 
-    <!-- ---- CHC Airport ---- -->
-    <circle cx="405" cy="455" r="5" fill="#999" stroke="#fff" stroke-width="1.5"/>
-    <text x="415" y="453" font-size="9" fill="#999">CHC ✈️</text>
-    <text x="415" y="465" font-size="8.5" fill="#bbb">D3 取租车</text>
+    <!-- South Island outline -->
+    <path d="M 400,420 Q 432,408 452,430 Q 475,455 482,515 Q 488,575 478,645
+             Q 468,715 448,780 Q 428,840 405,890 Q 385,930 362,955
+             Q 342,970 325,960 Q 308,945 302,910 Q 296,870 305,820
+             Q 314,770 320,715 Q 324,660 325,605 Q 328,550 342,500
+             Q 358,455 378,435 Q 392,425 400,420 Z"
+          fill="#f1f8e9" stroke="#c5e1a5" stroke-width="1" opacity="0.4"/>
 
-    <!-- ---- Route: CHC → Lake Tekapo ---- -->
-    <line x1="400" y1="462" x2="385" y2="545" stroke="#e94560" stroke-width="3" marker-end="url(#arrow)"/>
-    <rect x="410" y="495" width="92" height="16" rx="8" fill="#333" opacity="0.85"/>
-    <text x="456" y="507" text-anchor="middle" font-size="8.5" fill="#fff">🚗 227km · 2h50</text>
+    <!-- CHC Airport -->
+    <circle cx="408" cy="448" r="4" fill="#aaa"/>
+    <text x="420" y="445" class="loc-sm">CHC 基督城</text>
+    <text x="420" y="457" class="sub">D3 取租车</text>
 
-    <!-- ---- Lake Tekapo ---- -->
-    <circle cx="382" cy="555" r="9" fill="#e94560" stroke="#fff" stroke-width="2.5" filter="url(#sh)"/>
-    <rect x="400" y="540" width="200" height="42" rx="8" fill="#e94560" filter="url(#sh)"/>
-    <text x="408" y="557" font-size="12" fill="#fff" font-weight="700">⛪ Lake Tekapo 蒂卡波</text>
-    <text x="555" y="557" font-size="11" fill="#e91e63">❤️</text>
-    <text x="408" y="573" font-size="9" fill="rgba(255,255,255,0.8)">🏨 D3住 · 好牧羊人教堂 · 观星</text>
+    <!-- CHC → Lake Tekapo -->
+    <line x1="405" y1="455" x2="388" y2="530" stroke="#e94560" stroke-width="2.5"/>
+    <text x="415" y="495" class="dist">227km · 2h50</text>
 
-    <!-- ---- Route: Tekapo → Mt Cook ---- -->
-    <line x1="375" y1="565" x2="355" y2="625" stroke="#e94560" stroke-width="3" marker-end="url(#arrow)"/>
-    <rect x="240" y="588" width="96" height="16" rx="8" fill="#333" opacity="0.85"/>
-    <text x="288" y="600" text-anchor="middle" font-size="8.5" fill="#fff">🚗 104km · 1h15</text>
+    <!-- Lake Tekapo -->
+    <circle cx="385" cy="540" r="7" fill="#e94560" stroke="#fff" stroke-width="2"/>
+    <text x="330" y="536" class="loc" text-anchor="end">蒂卡波 Tekapo</text>
+    <text x="330" y="549" class="sub" text-anchor="end">🏨 D3住 · 教堂 · 观星</text>
 
-    <!-- ---- Mt Cook ---- -->
-    <circle cx="350" cy="635" r="7" fill="#4ecdc4" stroke="#fff" stroke-width="2" filter="url(#sh)"/>
-    <rect x="365" y="624" width="170" height="24" rx="8" fill="#ff9800" filter="url(#sh)"/>
-    <text x="373" y="641" font-size="11.5" fill="#fff" font-weight="700">🏔️ D4 Mt Cook 库克山</text>
-    <text x="373" y="654" font-size="8.5" fill="#aaa">Hooker Valley 步道 ~3h</text>
+    <!-- Tekapo → Mt Cook -->
+    <line x1="382" y1="550" x2="365" y2="615" stroke="#e94560" stroke-width="2.5"/>
+    <text x="340" y="586" class="dist" text-anchor="end">104km · 1h15</text>
 
-    <!-- ---- Route: Mt Cook → Queenstown ---- -->
-    <path d="M 345,645 Q 330,700 335,770" stroke="#e94560" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-    <rect x="210" y="700" width="96" height="16" rx="8" fill="#333" opacity="0.85"/>
-    <text x="258" y="712" text-anchor="middle" font-size="8.5" fill="#fff">🚗 261km · 3h20</text>
+    <!-- Mt Cook -->
+    <circle cx="362" cy="623" r="5.5" fill="#4ecdc4" stroke="#fff" stroke-width="1.5"/>
+    <text x="375" y="620" class="loc-sm">库克山 Mt Cook</text>
+    <text x="375" y="632" class="day">D4</text>
+    <text x="375" y="644" class="sub">Hooker Valley ~3h</text>
 
-    <!-- ---- Queenstown ---- -->
-    <circle cx="340" cy="780" r="11" fill="#e94560" stroke="#fff" stroke-width="3" filter="url(#sh)"/>
-    <rect x="360" y="762" width="220" height="55" rx="8" fill="#e94560" filter="url(#sh)"/>
-    <text x="368" y="780" font-size="13" fill="#fff" font-weight="800">🌃 Queenstown 皇后镇</text>
-    <text x="368" y="796" font-size="9.5" fill="rgba(255,255,255,0.8)">🏨 D4晚 D5 D6 连住3晚</text>
-    <text x="368" y="810" font-size="8.5" fill="rgba(255,255,255,0.7)">🚡缆车 Luge · 🍽️ Fergburger</text>
+    <!-- Mt Cook → Queenstown -->
+    <path d="M 358,633 Q 348,695 350,760" stroke="#e94560" stroke-width="2.5" fill="none"/>
+    <text x="322" y="700" class="dist" text-anchor="end">261km · 3h20</text>
 
-    <!-- ---- Milford Sound (branch from QT) ---- -->
-    <path d="M 330,775 Q 295,740 275,710" stroke="#e94560" stroke-width="2.5" fill="none"/>
-    <circle cx="270" cy="705" r="7" fill="#4ecdc4" stroke="#fff" stroke-width="2" filter="url(#sh)"/>
-    <rect x="115" y="688" width="145" height="38" rx="8" fill="#ff9800" filter="url(#sh)"/>
-    <text x="123" y="705" font-size="11" fill="#fff" font-weight="700">🚢 D5 Milford Sound</text>
-    <text x="123" y="720" font-size="9" fill="rgba(255,255,255,0.8)">米尔福德峡湾 · 游船2h</text>
-    <text x="266" y="693" font-size="11" fill="#e91e63">❤️</text>
-    <!-- distance -->
-    <rect x="238" y="736" width="95" height="15" rx="7" fill="#333" opacity="0.85"/>
-    <text x="285" y="747" text-anchor="middle" font-size="8" fill="#fff">🚗 287km · 3h45</text>
-    <text x="260" y="760" font-size="7.5" fill="#aaa" text-anchor="middle">单程 当天往返</text>
+    <!-- Queenstown -->
+    <circle cx="352" cy="770" r="8" fill="#e94560" stroke="#fff" stroke-width="2.5"/>
+    <text x="368" y="766" class="loc">皇后镇 Queenstown</text>
+    <text x="368" y="780" class="sub">🏨 D4晚 D5 D6 住3晚</text>
+    <text x="368" y="793" class="sub">🚡缆车 Luge · Fergburger</text>
 
-    <!-- ---- Arrowtown (branch from QT) ---- -->
-    <line x1="348" y1="785" x2="400" y2="760" stroke="#e94560" stroke-width="2"/>
-    <circle cx="405" cy="755" r="5" fill="#4ecdc4" stroke="#fff" stroke-width="1.5"/>
-    <text x="415" y="750" font-size="10" fill="#333" font-weight="600">🍂 D6 箭镇</text>
-    <text x="415" y="762" font-size="8" fill="#aaa">Arrowtown 秋色</text>
-    <rect x="360" y="768" width="76" height="14" rx="7" fill="#333" opacity="0.8"/>
-    <text x="398" y="779" text-anchor="middle" font-size="7.5" fill="#fff">🚗 21km 25min</text>
+    <!-- Milford Sound branch (left) -->
+    <line x1="342" y1="765" x2="295" y2="710" stroke="#e94560" stroke-width="2"/>
+    <circle cx="290" cy="705" r="5" fill="#4ecdc4" stroke="#fff" stroke-width="1.5"/>
+    <text x="220" y="700" class="loc-sm" text-anchor="end">米尔福德峡湾</text>
+    <text x="220" y="712" class="sub" text-anchor="end">Milford Sound</text>
+    <text x="220" y="724" class="day" text-anchor="end">D5 游船 · 当天往返</text>
+    <text x="298" y="735" class="dist">287km · 3h45</text>
 
-    <!-- ---- Route: QT → Wanaka ---- -->
-    <path d="M 350,790 Q 380,830 395,860" stroke="#e94560" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-    <rect x="395" y="824" width="86" height="16" rx="8" fill="#333" opacity="0.85"/>
-    <text x="438" y="836" text-anchor="middle" font-size="8.5" fill="#fff">🚗 67km · 1h10</text>
+    <!-- Arrowtown branch (right) -->
+    <line x1="360" y1="770" x2="405" y2="750" stroke="#e94560" stroke-width="1.8"/>
+    <circle cx="410" cy="747" r="4" fill="#4ecdc4"/>
+    <text x="420" y="744" class="loc-sm">箭镇 Arrowtown</text>
+    <text x="420" y="756" class="sub">D6 🍂秋色 · 21km</text>
 
-    <!-- ---- Wanaka ---- -->
-    <circle cx="398" cy="870" r="8" fill="#e94560" stroke="#fff" stroke-width="2.5" filter="url(#sh)"/>
-    <rect x="415" y="857" width="180" height="38" rx="8" fill="#e94560" filter="url(#sh)"/>
-    <text x="423" y="874" font-size="12" fill="#fff" font-weight="700">🌳 D7 Wanaka 瓦纳卡</text>
-    <text x="423" y="889" font-size="8.5" fill="rgba(255,255,255,0.8)">🏨住 · 网红树 · Puzzling World</text>
+    <!-- QT → Wanaka -->
+    <path d="M 358,780 Q 378,825 395,855" stroke="#e94560" stroke-width="2.5" fill="none"/>
+    <text x="402" y="822" class="dist">67km · 1h10</text>
 
-    <!-- ---- Route: Wanaka → Dunedin ---- -->
-    <path d="M 395,880 Q 380,920 365,955" stroke="#e94560" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
-    <rect x="265" y="910" width="92" height="16" rx="8" fill="#333" opacity="0.85"/>
-    <text x="311" y="922" text-anchor="middle" font-size="8.5" fill="#fff">🚗 276km · 3h20</text>
+    <!-- Wanaka -->
+    <circle cx="398" cy="865" r="6.5" fill="#e94560" stroke="#fff" stroke-width="2"/>
+    <text x="412" y="861" class="loc">瓦纳卡 Wanaka</text>
+    <text x="412" y="874" class="sub">🏨 D7住 · 网红树 · Puzzling World</text>
 
-    <!-- ---- Dunedin ---- -->
-    <circle cx="360" cy="965" r="9" fill="#e94560" stroke="#fff" stroke-width="2.5" filter="url(#sh)"/>
-    <rect x="378" y="948" width="215" height="50" rx="8" fill="#e94560" filter="url(#sh)"/>
-    <text x="386" y="966" font-size="12" fill="#fff" font-weight="700">🏙️ Dunedin 但尼丁</text>
-    <text x="386" y="982" font-size="9" fill="rgba(255,255,255,0.8)">🏨 D8 D9 住 · 还租车</text>
-    <text x="386" y="995" font-size="8.5" fill="rgba(255,255,255,0.7)">火车站 · Baldwin St · 企鹅 · 城堡</text>
+    <!-- Wanaka → Dunedin -->
+    <path d="M 395,875 Q 382,915 370,950" stroke="#e94560" stroke-width="2.5" fill="none"/>
+    <text x="348" y="915" class="dist" text-anchor="end">276km · 3h20</text>
 
-    <!-- Moeraki Boulders (attraction near Dunedin) -->
-    <circle cx="400" cy="920" r="4" fill="#4ecdc4" stroke="#fff" stroke-width="1.5"/>
-    <text x="410" y="918" font-size="9" fill="#4ecdc4" font-weight="600">D9 摩拉基大圆石</text>
-    <text x="410" y="930" font-size="7.5" fill="#aaa">75km/1h 北边</text>
+    <!-- Moeraki Boulders (on route) -->
+    <circle cx="385" cy="920" r="3" fill="#4ecdc4"/>
+    <text x="393" y="924" class="sub">摩拉基大圆石</text>
 
-    <!-- ---- DUD Airport ---- -->
-    <circle cx="345" cy="990" r="5" fill="#999" stroke="#fff" stroke-width="1.5"/>
-    <text x="330" y="1006" font-size="9" fill="#999" text-anchor="end">DUD ✈️</text>
+    <!-- Dunedin -->
+    <circle cx="367" cy="958" r="7" fill="#e94560" stroke="#fff" stroke-width="2"/>
+    <text x="382" y="954" class="loc">但尼丁 Dunedin</text>
+    <text x="382" y="967" class="sub">🏨 D8 D9住 · 还租车</text>
+    <text x="382" y="980" class="sub">火车站 · Baldwin St · 企鹅</text>
 
-    <!-- ================================================================ -->
-    <!-- FLIGHT: DUD → AKL (return, dashed line going back up) -->
-    <!-- ================================================================ -->
-    <path d="M 350,995 Q 450,800 430,500 Q 425,400 420,210"
-          stroke="#666" stroke-width="2" stroke-dasharray="8,5" fill="none"/>
-    <!-- Flight info pill -->
-    <rect x="460" y="580" width="155" height="20" rx="10" fill="#555" opacity="0.9"/>
-    <text x="537" y="594" text-anchor="middle" font-size="9" fill="#fff">✈️ JQ282 · 11:50→13:35</text>
-    <text x="460" y="612" font-size="8.5" fill="#999">D10 (5/9) 但尼丁→奥克兰</text>
+    <!-- DUD Airport -->
+    <circle cx="355" cy="982" r="3.5" fill="#aaa"/>
+    <text x="340" y="987" class="sub" text-anchor="end">DUD ✈</text>
 
-    <!-- ================================================================ -->
-    <!-- RETURN FLIGHT: AKL → Home -->
-    <!-- ================================================================ -->
-    <rect x="440" y="170" width="152" height="20" rx="10" fill="#333" opacity="0.85"/>
-    <text x="516" y="184" text-anchor="middle" font-size="9" fill="#fff">✈️ CZ306 · 21:20 回广州</text>
-    <text x="440" y="162" font-size="8.5" fill="#aaa">D10 逛街购物后出发 ✈️</text>
-
-    <!-- ============ FOOTER ============ -->
-    <rect x="90" y="1040" width="540" height="60" rx="10" fill="#f8f8f8" stroke="#eee" stroke-width="1"/>
-    <text x="360" y="1060" text-anchor="middle" font-size="10.5" fill="#888">📋 行程概览</text>
-    <text x="110" y="1078" font-size="9" fill="#aaa">D1-D2 奥克兰(Cordis) → D2 霍比屯 → D3 ✈CHC→蒂卡波 → D4 库克山→皇后镇</text>
-    <text x="110" y="1093" font-size="9" fill="#aaa">D5 峡湾 → D6 箭镇+缆车 → D7 瓦纳卡 → D8-D9 但尼丁 → D10 ✈DUD→AKL→✈回家</text>
-
-    <text x="360" y="1125" text-anchor="middle" font-size="9.5" fill="#ccc">💡 南岛自驾 ~1016km · 5月秋季日落 ~17:30 · 靠左行驶 · 带保暖衣物</text>
+    <!-- FOOTER -->
+    <text x="360" y="1030" text-anchor="middle" class="sub">D1-D2 奥克兰 → D2 霍比屯 → D3 ✈基督城→蒂卡波 → D4 库克山→皇后镇</text>
+    <text x="360" y="1045" text-anchor="middle" class="sub">D5 峡湾 → D6 箭镇 → D7 瓦纳卡 → D8-D9 但尼丁 → D10 ✈回奥克兰→回家</text>
+    <text x="360" y="1072" text-anchor="middle" font-size="9" fill="#ddd">💡 5月秋季 · 日落~17:30 · 靠左行驶 · 带保暖衣物</text>
   </svg>
 </div>
 
